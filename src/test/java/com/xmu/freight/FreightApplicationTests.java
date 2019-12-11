@@ -1,6 +1,7 @@
 package com.xmu.freight;
 
 import com.xmu.freight.dao.DefaultFreightDao;
+import com.xmu.freight.dao.SpecialFreightDao;
 import com.xmu.freight.domain.*;
 import com.xmu.freight.service.FreightService;
 import com.xmu.freight.service.impl.FreightServiceImpl;
@@ -92,8 +93,12 @@ class FreightApplicationTests {
         o2.setNumber(2);
         Goods g1=new Goods();
         g1.setWeight(new BigDecimal(3.0));
+        g1.setBeSpecial(true);
+        g1.setSpecialFreightId(2);
         Goods g2=new Goods();
         g2.setWeight(new BigDecimal(2));
+        g2.setBeSpecial(true);
+        g2.setSpecialFreightId(1);
         ProductDto p1=new ProductDto(g1,null );
         ProductDto p2=new ProductDto(g2,null);
         OrderItemDto od1=new OrderItemDto();
@@ -110,8 +115,11 @@ class FreightApplicationTests {
         List<OrderItemDto> ol=new ArrayList<OrderItemDto>();
         ol.add(od1); ol.add(od2);
 
-        BigDecimal bd=freightServiceImpl.calculateByDefault(ol,address);
+        BigDecimal bd=freightServiceImpl.getFreight(ol,address);
         System.out.println("zhi:  "+bd);
     }
+
+
+
 
 }

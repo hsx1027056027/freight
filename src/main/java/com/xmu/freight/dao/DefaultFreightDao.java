@@ -55,7 +55,6 @@ public class DefaultFreightDao {
                 {
                     return  defaultFreightDto;
                 }
-
             }
         }
         return null;

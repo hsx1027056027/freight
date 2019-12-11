@@ -39,7 +39,15 @@ public class SpecialFreightDto extends SpecialFreight {
         else
         {
             //共几个x件向上取整
-            int times = (allGoodsNum-this.getFirstNumPiece()) % this.getContinueNumPiece()+1;
+            int times = 0 ;
+            if((allGoodsNum-this.getFirstNumPiece()) % this.getContinueNumPiece() == 0)
+            {
+                times = (allGoodsNum-this.getFirstNumPiece()) / this.getContinueNumPiece();
+            }
+            else
+            {
+                times = (allGoodsNum-this.getFirstNumPiece()) / this.getContinueNumPiece() + 1;
+            }
             BigDecimal nomalFee = this.getFirstNumPiecePrice().add(this.getContinueNumPiecePrice().multiply(new BigDecimal(times)));
             return nomalFee.multiply(rate);
         }
