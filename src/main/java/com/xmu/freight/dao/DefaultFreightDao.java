@@ -61,19 +61,38 @@ public class DefaultFreightDao {
         return null;
     }
 
+    /**
+     * 获得默认运费模板列表
+     * @return List<DefaultFreightDto>模板列表
+     */
     public List<DefaultFreightDto> getDefaultFreights(){
         return defaultFreightMapper.getDefaultFreights();
     }
 
+    /**
+     * 通过id查看运费模板
+     * @param id 模板Id
+     * @return DefaultFreightDto 默认模板
+     */
     public DefaultFreightDto findDefaultFreightById(Integer id){
         return defaultFreightMapper.findDefaultFreightById(id);
     }
 
 
+    /**
+     *修改默认运费模板
+     * @param defaultFreightDto 新的模板
+     * @return  DefaultFreightDto修改后的该模板
+     */
     public void UpdateDefaultFreight(DefaultFreightDto defaultFreightDto){
         defaultFreightMapper.updateDefaultFreight(defaultFreightDto);
     }
 
+    /**
+     *新增运费模板
+     * @param defaultFreightDto 新增的模板
+     * @return DefaultFreightDto 新增的模板
+     */
     public void addDefaultFreight(DefaultFreightDto defaultFreightDto){
         defaultFreightMapper.addDefaultFreight(defaultFreightDto);
     }

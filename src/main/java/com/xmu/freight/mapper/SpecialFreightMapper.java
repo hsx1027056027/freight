@@ -11,19 +11,58 @@ import java.util.List;
 @Component
 public interface SpecialFreightMapper {
 
+    /**
+     * 获得所有的特殊运费模板
+     * @return List<SpecialFreightDto> 所有的运费模板
+     */
     public List<SpecialFreightDto> getSpecialFreights();
 
+    /**
+     *通过Id获得特殊运费模板
+     * @param id
+     * @return SpecialFreightDto
+     */
     public SpecialFreightDto findSpecialFreightById(Integer id);
 
+
+    /**
+     *  修改特殊运费模板
+     * @param specialFreightDto 要修改的特殊模板
+     * @return SpecialFreightDto
+     */
     public void updateSpecialFreight(SpecialFreightDto specialFreightDto);
 
+    /**
+     * 添加特殊运费模板
+     * @param specialFreightDto  要添加的特殊模板
+     * @return SpecialFreightDto 添加后的特殊模板
+     */
     public void addSpecialFreight(SpecialFreightDto specialFreightDto);
 
+    /**
+     * 获得所有默认特殊模板
+     * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
+     */
     public List<DefaultPieceFreightDto> getDefaultPieceFreight();
 
+    /**
+     * 删除某个默认特殊模板
+     * @param id 要删除模板的ID
+     * @return DefaultPieceFreightDt
+     */
     public DefaultPieceFreightDto findDefaultPieceFreightById(Integer id);
 
+    /**
+     * 更新默认特殊运费模板
+     * @param defaultPieceFreightDto 要更新的模板
+     * @return DefaultPieceFreightDt 更新后的模板
+     */
     public void updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
 
+    /**
+     * 添加默认特殊模板
+     * @param defaultPieceFreightDto 要添加的特殊默认模板
+     * @return DefaultPieceFreightDt 添加成功的特殊默认模板
+     */
     public void addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
 }
