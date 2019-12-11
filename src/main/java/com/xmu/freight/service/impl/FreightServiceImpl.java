@@ -26,6 +26,10 @@ public class FreightServiceImpl implements FreightService {
     @Autowired
     SpecialFreightDao specialFreightDao;
 
+    /**
+     * 获得默认运费模板列表
+     * @return
+     */
     @Override
     public List<DefaultFreightDto> getDefaultFreights() {
         return defaultFreightDao.getDefaultFreights();
