@@ -7,7 +7,7 @@ import java.util.Objects;
 /**
  * @Author: 数据库与对象模型标准组
  * @Description: 特殊运费模板
- * @Date: Created in 16:00 2019/11/29
+ * @Date: Created in
  * @Modified By:
  **/
 

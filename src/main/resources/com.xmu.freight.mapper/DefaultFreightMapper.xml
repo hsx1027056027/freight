@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmu.freight.mapper.DefaultFreightMapper">
+    <resultMap id="defaultFreight" type="DefaultFreight">
+        <result property="beDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <select id="getDefaultFreights" resultMap="defaultFreight" >
+          select id,
+          destination,
+          first_heavy_price,
+          continue_heavy_price,
+          over10_price,over50_price,over100_price,over300_price,
+          require_days,
+          gmt_create,
+          gmt_modified,
+          is_deleted
+          from default_freight
+          where id!=0
+   </select>
+
+    <select id="findDefaultFreightById" resultMap="defaultFreight" parameterType="Integer">
+           select id,
+          destination,
+          first_heavy_price,
+          continue_heavy_price,
+          over10_price,over50_price,over100_price,over300_price,
+          require_days,
+          gmt_create,
+          gmt_modified,
+          is_deleted
+          from default_freight
+          where id=#{id}
+    </select>
+
+   <update id="updateDefaultFreight" parameterType="DefaultFreight">
+           update default_freight
+           <set>
+               <if test="destination!=null">destination=#{destination},</if>
+               <if test="firstHeavyPrice!=null">first_heavy_price=#{firstHeavyPrice},</if>
+               <if test="continueHeavyPrice!=null">continue_heavy_price=#{continueHeavyPrice},</if>
+               <if test="over10Price!=null">over10_price=#{over10Price},</if>
+               <if test="over50Price!=null">over50_price=#{over50Price},</if>
+               <if test="over100Price!=null">over100_price=#{over100Price},</if>
+               <if test="over300Price!=null">over300_price=#{over300Price},</if>
+               <if test="requireDays!=null">require_days=#{requireDays},</if>
+               <if test="gmtCreate!=null">gmt_create=#{gmtCreate},</if>
+               <if test="gmtModified!=null">gmt_modified=#{gmtModified},</if>
+               <if test="beDeleted!=null">is_deleted=#{beDeleted}</if>
+           </set>
+           where id=#{id}
+   </update>
+    
+    <insert id="addDefaultFreight" parameterType="DefaultFreight" useGeneratedKeys="true" keyProperty="id">
+            insert into default_freight(  destination,
+          first_heavy_price,
+          continue_heavy_price,
+          over10_price,over50_price,over100_price,over300_price,
+          require_days,
+          gmt_create,
+          gmt_modified,
+          is_deleted)
+          values
+          (#{destination},#{firstHeavyPrice},#{continueHeavyPrice},#{over10Price},#{over50Price},#{over100Price},
+          #{over300Price},#{requireDays},#{gmtCreate},#{gmtModified},#{beDeleted})
+    </insert>
+
+
+</mapper>

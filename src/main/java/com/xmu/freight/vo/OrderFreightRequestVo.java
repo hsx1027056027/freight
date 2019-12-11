@@ -10,6 +10,22 @@ import java.util.List;
 public class OrderFreightRequestVo {
     private Address address;
 
-    private List<OrderItem> orderItemList;
+    private List<OrderItemVo> orderItemVoList;
 
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+
+    public List<OrderItemVo> getOrderItemVoList() {
+        return orderItemVoList;
+    }
+
+    public void setOrderItemVoList(List<OrderItemVo> orderItemVoList) {
+        this.orderItemVoList = orderItemVoList;
+    }
 }

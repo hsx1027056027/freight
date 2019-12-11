@@ -1,5 +1,8 @@
 package com.xmu.freight.standardController;
 
+import com.xmu.freight.domain.DefaultFreightDto;
+import com.xmu.freight.domain.SpecialFreightDto;
+import com.xmu.freight.vo.OrderFreightRequestVo;
 import org.apache.tomcat.util.http.ResponseUtil;
 import org.springframework.core.annotation.Order;
 import org.springframework.web.bind.annotation.*;
@@ -20,10 +23,10 @@ public interface FreightController {
 
 
     @PostMapping("/defaultFreights")
-    public Object addDefaultFreights(@RequestBody String body);
+    public Object addDefaultFreights(@RequestBody DefaultFreightDto defaultFreightDto);
 
     @PostMapping("/specialFreight")
-    public Object addSpecialFreight(@RequestBody String body);
+    public Object addSpecialFreight(@RequestBody SpecialFreightDto specialFreightDto);
 
     @DeleteMapping("/defaultFreights/{id}")
     public Object deleteDefaultFreight(@PathVariable("defaultFreightsId") String defaultFreightsId);
@@ -37,6 +40,6 @@ public interface FreightController {
     @DeleteMapping("/defaultFreights/{id}")
     public Object updateDefaultFreight(@PathVariable("defaultFreightsId") String defaultFreightsId);
 
-    @GetMapping("/freight/{orderitemid}")
-    public Object getFreight();
+    @GetMapping("/freight/{orderId}")
+    public Object getFreight(@RequestBody OrderFreightRequestVo orderFreightRequestVo);
 }

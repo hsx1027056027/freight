@@ -1,26 +1,49 @@
 package com.xmu.freight.service;
 
 import com.xmu.freight.domain.DefaultFreightDto;
+import com.xmu.freight.domain.DefaultPieceFreightDto;
+import com.xmu.freight.domain.OrderItemDto;
 import com.xmu.freight.domain.SpecialFreightDto;
+import com.xmu.freight.standardDomain.Address;
+import com.xmu.freight.vo.OrderItemVo;
+import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.List;
+
+@Service
 public interface FreightService {
 
 
-    DefaultFreightDto getDefaultFreights();
+    public List<DefaultFreightDto> getDefaultFreights();
 
-    SpecialFreightDto getSpecialFreight();
+    public DefaultFreightDto findDefaultFreightById(Integer id);
 
-    DefaultFreightDto addDefaultFreights();
+    public DefaultFreightDto updateDefaultFreight(DefaultFreightDto defaultFreightDto);
 
-    SpecialFreightDto addSpecialFreight();
+    public DefaultFreightDto addDefaultFreight(DefaultFreightDto defaultFreightDto);
 
-    int deleteDefaultFreight();
+    public DefaultFreightDto deleteDefaultFreight(Integer id);
 
-    int deleteSpecialFreight();
+    public List<SpecialFreightDto> getSpecialFreights();
 
-    SpecialFreightDto updateSpecialFreight();
+    public SpecialFreightDto findSpecialFreightById(Integer id);
 
-    DefaultFreightDto updateDefaultFreight();
+    public SpecialFreightDto updateSpecialFreight(SpecialFreightDto specialFreightDto);
 
-    int getFreight();
+    public SpecialFreightDto addSpecialFreight(SpecialFreightDto specialFreightDto);
+
+    public SpecialFreightDto deleteSpecialFreight(Integer id);
+
+    public List<DefaultPieceFreightDto> getDefaultPieceFreight();
+
+    public DefaultPieceFreightDto findDefaultPieceFreightById(Integer id);
+
+    public DefaultPieceFreightDto updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
+
+    public DefaultPieceFreightDto addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
+
+    public DefaultPieceFreightDto deleteDefaultPieceFreight(Integer id);
+
+    BigDecimal getFreight(List<OrderItemDto> orderItemDtooList, Address address);
 }

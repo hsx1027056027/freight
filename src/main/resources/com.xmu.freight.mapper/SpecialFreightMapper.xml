@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xmu.freight.mapper.SpecialFreighMapper">
+
+    <resultMap id="specialFreight" type="SpecialFreight">
+        <result property="beDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <resultMap id="defaultPieceFreight" type="DefaultPieceFreight">
+        <result property="beDeleted" column="is_deleted"/>
+    </resultMap>
+
+    <select id="getSpecialFreights" resultMap="specialFreight">
+              select id,
+              first_num_piece,
+              first_num_piece_price,
+              continue_num_piece,
+              continue_num_piece_price,
+              gmt_create,
+              gmt_modified,
+              is_deleted
+              from special_freight
+              where id!=0
+    </select>
+
+    <select id="findSpecialFreightById" resultMap="specialFreight" parameterType="Integer">
+           select id,
+              first_num_piece,
+              first_num_piece_price,
+              continue_num_piece,
+              continue_num_piece_price,
+              gmt_create,
+              gmt_modified,
+              is_deleted
+              from special_freight
+              where id=#{id}
+    </select>
+
+    <insert id="addSpecialFreight" parameterType="SpecialFreight" useGeneratedKeys="true" keyProperty="id">
+            intsert into special_freight(
+              first_num_piece,
+              first_num_piece_price,
+              continue_num_piece,
+              continue_num_piece_price,
+              gmt_create,
+              gmt_modified,
+              is_deleted
+            )values(
+              #{firstNumPiece},#{firstNumPiecePrice},#{continueNumPiece},
+              #{continueNumPiecePrice},#{gmtCreate},#{gmtModified},#{beDeleted}
+            )
+    </insert>
+
+    <update id="updateSpecialFreight" parameterType="SpecialFreight">
+         update  special_freight
+         <set>
+             <if test="firstNumPiece!=null">first_num_piece=#{firstNumPiece},</if>
+             <if test="firstNumPiecePrice!=null">first_num_piece_price=#{firstNumPiecePrice},</if>
+             <if test="continueNumPiece!=null"> continue_num_piece=#{continueNumPiece},</if>
+             <if test="continueNumPiecePrice!=null">continue_num_piece_price=#{continueNumPiecePrice},</if>
+             <if test="gmtCreate!=null">gmt_create=#{gmtCreate},</if>
+             <if test="gmtModified!=null">gmt_modified=#{gmtModified},</if>
+             <if test="beDeleted!=null">is_deleted=#{beDeleted}</if>
+         </set>
+         where id=#{id}
+    </update>
+
+    <select id="getDefaultPieceFreight" resultMap="defaultPieceFreight">
+        select id,
+        destination,
+        unit_rate,
+        require_days,
+        gmt_create,
+        gmt_modified,
+        is_deleted
+        from default_piece_freight
+        where id!=0
+    </select>
+
+    <select id="findDefaultPieceFreightById" resultMap="defaultPieceFreight" parameterType="Integer">
+          select id,
+        destination,
+        unit_rate,
+        require_days,
+        gmt_create,
+        gmt_modified,
+        is_deleted
+        from default_piece_freight
+        where id=#{id}
+    </select>
+
+    <update id="updateDefaultPieceFreight" parameterType="DefaultPieceFreight">
+           update default_piece_freight
+           <set>
+               <if test="destination!=null">destination=#{destination},</if>
+               <if test="unitRate!=null">unit_rate=#{unitRate},</if>
+               <if test="requireDays!=null">require_days=#{requireDays},</if>
+               <if test="gmtCreate!=null">gmt_create=#{gmtCreate},</if>
+               <if test="gmtModified!=null">gmt_modified=#{gmtModified},</if>
+               <if test="beDeleted!=null">is_deleted=#{beDeleted}</if>
+           </set>
+           where id=#{id}
+    </update>
+
+    <insert id="addDefaultPieceFreight" parameterType="DefaultPieceFreight" useGeneratedKeys="true" keyProperty="id">
+            insert into default_piece_freight(
+            destination,
+            unit_rate,
+            require_days,
+            gmt_create,
+            gmt_modified,
+            is_deleted
+            )
+            values(
+            #{destination},
+            #{unitRate},
+            #{requireDays},
+            #{gmtCreate},
+            #{gmtModified},
+            #{beDeleted}
+            )
+    </insert>
+
+</mapper>

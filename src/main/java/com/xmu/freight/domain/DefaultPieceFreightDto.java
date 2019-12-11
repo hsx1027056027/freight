@@ -1,104 +1,39 @@
 package com.xmu.freight.domain;
 
 import com.xmu.freight.standardDomain.DefaultPieceFreight;
+import com.xmu.freight.util.JacksonUtil;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-public class DefaultPieceFreightDto extends DefaultPieceFreight {
+public class DefaultPieceFreightDto  {
+    private DefaultPieceFreight defaultPieceFreight;
 
-    @Override
-    public String toString() {
-        return super.toString();
+    public List<Integer> getDestination() {
+        //转换方法
+        String jsonString = defaultPieceFreight.getDestination();
+        jsonString = org.apache.commons.text.StringEscapeUtils.unescapeJson(jsonString);
+        return  JacksonUtil.parseIntegerList(jsonString, "rIDs");
+
     }
 
-    @Override
-    protected void finalize() throws Throwable {
-        super.finalize();
+
+    public void setDestination( List<Integer> regionIds) {
+        //转换方法
+        Map<String,Object> idMap = new HashMap<String, Object>(1);
+        idMap.put("rIDs", regionIds);
+        defaultPieceFreight.setDestination(JacksonUtil.toJson(idMap));
     }
 
-    @Override
-    public boolean equals(Object o) {
-        return super.equals(o);
+
+    public DefaultPieceFreight getDefaultPieceFreight() {
+        return defaultPieceFreight;
     }
 
-    @Override
-    protected Object clone() throws CloneNotSupportedException {
-        return super.clone();
-    }
-
-    @Override
-    public int hashCode() {
-        return super.hashCode();
-    }
-
-    @Override
-    public Integer getId() {
-        return super.getId();
-    }
-
-    @Override
-    public void setId(Integer id) {
-        super.setId(id);
-    }
-
-    @Override
-    public String getDestination() {
-        return super.getDestination();
-    }
-
-    @Override
-    public void setDestination(String destination) {
-        super.setDestination(destination);
-    }
-
-    @Override
-    public BigDecimal getUnitRate() {
-        return super.getUnitRate();
-    }
-
-    @Override
-    public void setUnitRate(BigDecimal unitRate) {
-        super.setUnitRate(unitRate);
-    }
-
-    @Override
-    public LocalDateTime getGmtCreate() {
-        return super.getGmtCreate();
-    }
-
-    @Override
-    public void setGmtCreate(LocalDateTime gmtCreate) {
-        super.setGmtCreate(gmtCreate);
-    }
-
-    @Override
-    public LocalDateTime getGmtModified() {
-        return super.getGmtModified();
-    }
-
-    @Override
-    public void setGmtModified(LocalDateTime gmtModified) {
-        super.setGmtModified(gmtModified);
-    }
-
-    @Override
-    public Boolean getBeDeleted() {
-        return super.getBeDeleted();
-    }
-
-    @Override
-    public void setBeDeleted(Boolean beDeleted) {
-        super.setBeDeleted(beDeleted);
-    }
-
-    @Override
-    public String getRequireDays() {
-        return super.getRequireDays();
-    }
-
-    @Override
-    public void setRequireDays(String requireDays) {
-        super.setRequireDays(requireDays);
+    public void setDefaultPieceFreight(DefaultPieceFreight defaultPieceFreight) {
+        this.defaultPieceFreight = defaultPieceFreight;
     }
 }
