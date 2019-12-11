@@ -74,9 +74,6 @@ public class FreightControllerDto implements FreightController {
 
     @Override
     public Object getFreight(@RequestBody OrderFreightRequestVo orderFreightRequestVo) {
-//        for (OrderItem item:orderFreightRequestVo.getOrderItemList()) {
-//            //TODO:获得goods
-//        }
         List<OrderItemDto> OrderItemDtoList =new ArrayList<OrderItemDto>();
         for (OrderItemVo orderItemVo:orderFreightRequestVo.getOrderItemVoList())
         {
