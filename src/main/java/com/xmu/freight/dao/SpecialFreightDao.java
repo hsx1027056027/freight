@@ -53,11 +53,11 @@ public class SpecialFreightDao {
     {
         for(DefaultPieceFreightDto defaultPieceFreightDto:defaultPieceFreightDtoList)
         {
-            for(int regionId : defaultPieceFreightDto.getDestination())
+            for(int regionId : defaultPieceFreightDto.getDestinationList())
             {
                 if(regionId == id)
                 {
-                    return  defaultPieceFreightDto.getDefaultPieceFreight().getUnitRate();
+                    return  defaultPieceFreightDto.getUnitRate();
                 }
 
             }

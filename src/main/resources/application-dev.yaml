@@ -6,7 +6,7 @@ spring:
     name: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oomall?serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/oomall4
     username: root
     password: 6892778tt
     druid:
@@ -41,7 +41,7 @@ spring:
 
 mybatis:
   #domain对象的包
-  type-aliases-package: com.xmu.freight.standardDomain
+  type-aliases-package: com.xmu.freight.domain
   #mapper。xml所在的位置
   mapper-locations: classpath:com.xmu.freight.mapper/*.xml
   configuration:

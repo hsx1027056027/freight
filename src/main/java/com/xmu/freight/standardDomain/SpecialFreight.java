@@ -12,7 +12,7 @@ import java.util.Objects;
  * @Date: Created in
  * @Modified By:
  **/
-@Alias("SpecialFreight")
+
 public class SpecialFreight {
 
     private Integer id;

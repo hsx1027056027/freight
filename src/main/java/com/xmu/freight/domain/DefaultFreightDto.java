@@ -51,90 +51,87 @@ public class DefaultFreightDto extends DefaultFreight   {
         }
         else if(allGoodsWeight.compareTo(new BigDecimal(l1))<=0)
         {
-            return  defaultFreight.getFirstHeavyPrice();
+            return  this.getFirstHeavyPrice();
         }
         else if(allGoodsWeight.compareTo(new BigDecimal(l2))<=0)
         {
             //首重
-            fee = defaultFreight.getFirstHeavyPrice();
+            fee = this.getFirstHeavyPrice();
             //0.5到10
             BigDecimal temp = allGoodsWeight.divideAndRemainder(new BigDecimal(0.5))[0].add(new BigDecimal(1));
-            fee.add((temp.multiply(defaultFreight.getContinueHeavyPrice())));
+            fee.add((temp.multiply(this.getContinueHeavyPrice())));
             return fee;
         }
         else if(allGoodsWeight.compareTo(new BigDecimal(l3))<=0)
         {
             //首重
-            fee = defaultFreight.getFirstHeavyPrice();
+            fee = this.getFirstHeavyPrice();
             //10内
-            fee.add(defaultFreight.getContinueHeavyPrice().multiply(new BigDecimal(19)));
+            fee.add(this.getContinueHeavyPrice().multiply(new BigDecimal(19)));
             //10到50
             BigDecimal temp1 = allGoodsWeight.subtract(new BigDecimal(l2));
             BigDecimal temp2 = temp1.divideAndRemainder(new BigDecimal(1))[0].add(new BigDecimal(1));
-            fee.add(temp2.multiply(defaultFreight.getOver10Price()));
+            fee.add(temp2.multiply(this.getOver10Price()));
             return fee;
         }
         else if(allGoodsWeight.compareTo(new BigDecimal(l4))<=0) {
             //首重
-            fee = defaultFreight.getFirstHeavyPrice();
+            fee = this.getFirstHeavyPrice();
             //10内
-            fee.add(defaultFreight.getContinueHeavyPrice().multiply(new BigDecimal(19)));
+            fee.add(this.getContinueHeavyPrice().multiply(new BigDecimal(19)));
             //10到50
-            fee.add(defaultFreight.getOver10Price().multiply(new BigDecimal(40)));
+            fee.add(this.getOver10Price().multiply(new BigDecimal(40)));
             //50到100
             BigDecimal temp1 = allGoodsWeight.subtract(new BigDecimal(l3));
             BigDecimal temp2 = temp1.divideAndRemainder(new BigDecimal(1))[0].add(new BigDecimal(1));
-            fee.add(temp2.multiply(defaultFreight.getOver50Price()));
+            fee.add(temp2.multiply(this.getOver50Price()));
             return fee;
         }
         else if(allGoodsWeight.compareTo(new BigDecimal(l5))<=0)
         {
             //首重
-            fee = defaultFreight.getFirstHeavyPrice();
+            fee = this.getFirstHeavyPrice();
             //10内
-            fee.add(defaultFreight.getContinueHeavyPrice().multiply(new BigDecimal(19)));
+            fee.add(this.getContinueHeavyPrice().multiply(new BigDecimal(19)));
             //10到50
-            fee.add(defaultFreight.getOver10Price().multiply(new BigDecimal(40)));
+            fee.add(this.getOver10Price().multiply(new BigDecimal(40)));
             //50到100
-            fee.add(defaultFreight.getOver50Price().multiply(new BigDecimal(50)));
+            fee.add(this.getOver50Price().multiply(new BigDecimal(50)));
             //100到300
             BigDecimal temp1 = allGoodsWeight.subtract(new BigDecimal(l4));
             BigDecimal temp2 = temp1.divideAndRemainder(new BigDecimal(1))[0].add(new BigDecimal(1));
-            fee.add(temp2.multiply(defaultFreight.getOver100Price()));
+            fee.add(temp2.multiply(this.getOver100Price()));
             return fee;
         }
         else
         {
             //首重
-            fee = defaultFreight.getFirstHeavyPrice();
+            fee = this.getFirstHeavyPrice();
             //10内
-            fee.add(defaultFreight.getContinueHeavyPrice().multiply(new BigDecimal(19)));
+            fee.add(this.getContinueHeavyPrice().multiply(new BigDecimal(19)));
             //10到50
-            fee.add(defaultFreight.getOver10Price().multiply(new BigDecimal(40)));
+            fee.add(this.getOver10Price().multiply(new BigDecimal(40)));
             //50到100
-            fee.add(defaultFreight.getOver50Price().multiply(new BigDecimal(50)));
+            fee.add(this.getOver50Price().multiply(new BigDecimal(50)));
             //100到300
-            fee.add(defaultFreight.getOver100Price().multiply(new BigDecimal(200)));
+            fee.add(this.getOver100Price().multiply(new BigDecimal(200)));
             //300以上
             BigDecimal temp1 = allGoodsWeight.subtract(new BigDecimal(l5));
             BigDecimal temp2 = temp1.divideAndRemainder(new BigDecimal(1))[0].add(new BigDecimal(1));
-            fee.add(temp2.multiply(defaultFreight.getOver300Price()));
+            fee.add(temp2.multiply(this.getOver300Price()));
             return fee;
         }
     }
 
 
-    public List<Integer> getDestination() {
+    public List<Integer> getDestinationList() {
         //转换方法
         String jsonString = super.getDestination();
         return  JSON.parseArray(jsonString,Integer.class);
-
     }
 
-
-    public void setDestination( List<Integer> regionIds) {
+    public void setDestinationList( List<Integer> regionIds) {
         //转换方法
-
         super.setDestination(JSON.toJSONString(regionIds));
     }
 
@@ -164,11 +161,4 @@ public class DefaultFreightDto extends DefaultFreight   {
     }
 
 
-    public DefaultFreight getDefaultFreight() {
-        return defaultFreight;
-    }
-
-    public void setDefaultFreight(DefaultFreight defaultFreight) {
-        this.defaultFreight = defaultFreight;
-    }
 }

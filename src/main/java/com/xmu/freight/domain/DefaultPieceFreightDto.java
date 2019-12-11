@@ -11,31 +11,24 @@ import java.util.List;
 import java.util.Map;
 
 
-public class DefaultPieceFreightDto  {
-    private DefaultPieceFreight defaultPieceFreight;
+public class DefaultPieceFreightDto extends DefaultPieceFreight  {
 
-    public List<Integer> getDestination() {
+
+    public List<Integer> getDestinationList() {
         //转换方法
-        String jsonString = defaultPieceFreight.getDestination();
+        String jsonString = this.getDestination();
         jsonString = org.apache.commons.text.StringEscapeUtils.unescapeJson(jsonString);
         return  JacksonUtil.parseIntegerList(jsonString, "rIDs");
 
     }
 
 
-    public void setDestination( List<Integer> regionIds) {
+    public void setDestinationList( List<Integer> regionIds) {
         //转换方法
         Map<String,Object> idMap = new HashMap<String, Object>(1);
         idMap.put("rIDs", regionIds);
-        defaultPieceFreight.setDestination(JacksonUtil.toJson(idMap));
+        this.setDestination(JacksonUtil.toJson(idMap));
     }
 
 
-    public DefaultPieceFreight getDefaultPieceFreight() {
-        return defaultPieceFreight;
-    }
-
-    public void setDefaultPieceFreight(DefaultPieceFreight defaultPieceFreight) {
-        this.defaultPieceFreight = defaultPieceFreight;
-    }
 }

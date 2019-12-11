@@ -49,7 +49,7 @@ public class DefaultFreightDao {
     public DefaultFreightDto findDefaultByRegionId(List<DefaultFreightDto> defaultFreightDtoList,Integer id){
         for(DefaultFreightDto defaultFreightDto:defaultFreightDtoList)
         {
-            for(int regionId : defaultFreightDto.getDestination())
+            for(int regionId : defaultFreightDto.getDestinationList())
             {
                 if(regionId == id)
                 {

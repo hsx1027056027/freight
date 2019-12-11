@@ -52,9 +52,9 @@ public class FreightServiceImpl implements FreightService {
      */
     @Override
     public DefaultFreightDto updateDefaultFreight(DefaultFreightDto defaultFreightDto) {
-        defaultFreightDto.getDefaultFreight().setGmtModified(LocalDateTime.now());
+        defaultFreightDto.setGmtModified(LocalDateTime.now());
         defaultFreightDao.UpdateDefaultFreight(defaultFreightDto);
-        DefaultFreightDto t=defaultFreightDao.findDefaultFreightById(defaultFreightDto.getDefaultFreight().getId());
+        DefaultFreightDto t=defaultFreightDao.findDefaultFreightById(defaultFreightDto.getId());
         return t;
     }
 
@@ -66,10 +66,10 @@ public class FreightServiceImpl implements FreightService {
      */
     @Override
     public DefaultFreightDto addDefaultFreight(DefaultFreightDto defaultFreightDto) {
-        defaultFreightDto.getDefaultFreight().setGmtCreate(LocalDateTime.now());
-        defaultFreightDto.getDefaultFreight().setGmtModified(LocalDateTime.now());
+        defaultFreightDto.setGmtCreate(LocalDateTime.now());
+        defaultFreightDto.setGmtModified(LocalDateTime.now());
         defaultFreightDao.addDefaultFreight(defaultFreightDto);
-        DefaultFreightDto t=defaultFreightDao.findDefaultFreightById(defaultFreightDto.getDefaultFreight().getId());
+        DefaultFreightDto t=defaultFreightDao.findDefaultFreightById(defaultFreightDto.getId());
         return t;
     }
 
@@ -82,10 +82,10 @@ public class FreightServiceImpl implements FreightService {
     @Override
     public DefaultFreightDto deleteDefaultFreight(Integer id) {
         DefaultFreightDto t=new DefaultFreightDto();
-        t.getDefaultFreight().setId(id);
-        t.getDefaultFreight().setBeDeleted(true);
+        t.setId(id);
+        t.setBeDeleted(true);
         defaultFreightDao.UpdateDefaultFreight(t);
-        t=defaultFreightDao.findDefaultFreightById(t.getDefaultFreight().getId());
+        t=defaultFreightDao.findDefaultFreightById(t.getId());
         return null;
     }
 
@@ -176,9 +176,9 @@ public class FreightServiceImpl implements FreightService {
      */
     @Override
     public DefaultPieceFreightDto updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto) {
-        defaultPieceFreightDto.getDefaultPieceFreight().setGmtModified(LocalDateTime.now());
+        defaultPieceFreightDto.setGmtModified(LocalDateTime.now());
         specialFreightDao.updateDefaultPieceFreight(defaultPieceFreightDto);
-        DefaultPieceFreightDto d=specialFreightDao.findDefaultPieceFreightById(defaultPieceFreightDto.getDefaultPieceFreight().getId());
+        DefaultPieceFreightDto d=specialFreightDao.findDefaultPieceFreightById(defaultPieceFreightDto.getId());
         return d;
     }
 
@@ -190,10 +190,10 @@ public class FreightServiceImpl implements FreightService {
      */
     @Override
     public DefaultPieceFreightDto addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto) {
-        defaultPieceFreightDto.getDefaultPieceFreight().setGmtCreate(LocalDateTime.now());
-        defaultPieceFreightDto.getDefaultPieceFreight().setGmtModified(LocalDateTime.now());
+        defaultPieceFreightDto.setGmtCreate(LocalDateTime.now());
+        defaultPieceFreightDto.setGmtModified(LocalDateTime.now());
         specialFreightDao.addDefaultPieceFreight(defaultPieceFreightDto);
-        DefaultPieceFreightDto d=specialFreightDao.findDefaultPieceFreightById(defaultPieceFreightDto.getDefaultPieceFreight().getId());
+        DefaultPieceFreightDto d=specialFreightDao.findDefaultPieceFreightById(defaultPieceFreightDto.getId());
         return d;
     }
 
@@ -205,8 +205,8 @@ public class FreightServiceImpl implements FreightService {
     @Override
     public DefaultPieceFreightDto deleteDefaultPieceFreight(Integer id) {
         DefaultPieceFreightDto d=new DefaultPieceFreightDto();
-        d.getDefaultPieceFreight().setId(id);
-        d.getDefaultPieceFreight().setBeDeleted(true);
+        d.setId(id);
+        d.setBeDeleted(true);
         specialFreightDao.updateDefaultPieceFreight(d);
         d=specialFreightDao.findDefaultPieceFreightById(id);
         return d;

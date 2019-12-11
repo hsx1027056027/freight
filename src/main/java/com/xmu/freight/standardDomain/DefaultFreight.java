@@ -11,7 +11,7 @@ import java.util.Objects;
  * @Date: Created in 16:00 2019/11/29
  * @Modified By:
  **/
-@Alias("DefaultFreight")
+
 public class DefaultFreight {
     private Integer id;
     /**
