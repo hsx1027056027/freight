@@ -15,11 +15,56 @@ public class SpecialFreightDao {
     @Autowired
     SpecialFreightMapper specialFreightMapper;
 
-    public BigDecimal findDefaultPiece(Address address)
+    /**
+     * 根据目的地址获得默认比率
+     * @param address 目的地址
+     * @return BigDecimal 比率
+     */
+    public BigDecimal findRateOfDefaultPieceByAddress(Address address)
     {
+        List<DefaultPieceFreightDto> defaultPieceFreightDtoList = this.getDefaultPieceFreight();
+        BigDecimal result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList,address.getProvinceId());
+        if(result != null)
+        {
+            return result;
+        }
+        else
+        {
+            result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList,address.getCityId());
+            if(result !=null)
+            {
+                return result;
+            }
+            else
+            {
+                result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList,address.getCountyId());
+                return result;
+            }
+        }
+    }
 
+    /**
+     * 根据地区Id获得比率
+     * @param defaultPieceFreightDtoList 全部的默认特殊模板
+     * @param id 地区id
+     * @return BigDecimal 比率
+     */
+    public BigDecimal findRateOfDefaultPieceByRegionId(List<DefaultPieceFreightDto> defaultPieceFreightDtoList,Integer id)
+    {
+        for(DefaultPieceFreightDto defaultPieceFreightDto:defaultPieceFreightDtoList)
+        {
+            for(int regionId : defaultPieceFreightDto.getDestination())
+            {
+                if(regionId == id)
+                {
+                    return  defaultPieceFreightDto.getDefaultPieceFreight().getUnitRate();
+                }
+
+            }
+        }
         return null;
     }
+
 
     public List<SpecialFreightDto> getSpecialFreights(){
         return specialFreightMapper.getSpecialFreights();
@@ -46,8 +91,6 @@ public class SpecialFreightDao {
     {
         return specialFreightMapper.findDefaultPieceFreightById(id);
     }
-
-
 
     public void updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto){
         specialFreightMapper.updateDefaultPieceFreight(defaultPieceFreightDto);

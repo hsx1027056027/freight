@@ -72,6 +72,11 @@ public class FreightControllerDto implements FreightController {
         return null;
     }
 
+    /**
+     * 获得运费
+     * @param orderFreightRequestVo
+     * @return 运费
+     */
     @Override
     public Object getFreight(@RequestBody OrderFreightRequestVo orderFreightRequestVo) {
         List<OrderItemDto> OrderItemDtoList =new ArrayList<OrderItemDto>();

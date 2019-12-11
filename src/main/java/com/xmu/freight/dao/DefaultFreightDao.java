@@ -13,13 +13,51 @@ public class DefaultFreightDao {
     @Autowired
     DefaultFreightMapper defaultFreightMapper;
 
-
+    /**
+     * 根据目的地址获得一行默认模板
+     * @param address 目的地址
+     * @return DefaultFreightDto 一行默认模板
+     */
     public DefaultFreightDto findDefaultByAddress(Address address){
-
-        return  null;
+        List<DefaultFreightDto> defaultFreightDtoList = this.getDefaultFreights();
+        DefaultFreightDto result = this.findDefaultByRegionId(defaultFreightDtoList,address.getProvinceId());
+        if(result != null)
+        {
+            return result;
+        }
+        else
+        {
+            result = this.findDefaultByRegionId(defaultFreightDtoList,address.getCityId());
+            if(result !=null)
+            {
+                return result;
+            }
+            else
+            {
+                result = this.findDefaultByRegionId(defaultFreightDtoList,address.getCountyId());
+                return result;
+            }
+        }
     }
 
-    public DefaultFreightDto findDefaultByRegionId(Integer id){
+    /**
+     * 根据地区id获得一行默认模板
+     * @param defaultFreightDtoList 全部的默认模板
+     * @param id 地区id
+     * @return DefaultFreightDto 一行默认模板
+     */
+    public DefaultFreightDto findDefaultByRegionId(List<DefaultFreightDto> defaultFreightDtoList,Integer id){
+        for(DefaultFreightDto defaultFreightDto:defaultFreightDtoList)
+        {
+            for(int regionId : defaultFreightDto.getDestination())
+            {
+                if(regionId == id)
+                {
+                    return  defaultFreightDto;
+                }
+
+            }
+        }
         return null;
     }
 

@@ -6,7 +6,8 @@ import com.xmu.freight.standardDomain.DefaultFreight;
 import com.xmu.freight.util.JacksonUtil;
 import com.xmu.freight.vo.OrderItemVo;
 import org.codehaus.jettison.json.JSONArray;
-import org.mortbay.util.ajax.JSON;
+import com.alibaba.fastjson.JSON;
+
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -124,17 +125,15 @@ public class DefaultFreightDto  {
     public List<Integer> getDestination() {
         //转换方法
         String jsonString = defaultFreight.getDestination();
-        jsonString = org.apache.commons.text.StringEscapeUtils.unescapeJson(jsonString);
-        return JacksonUtil.parseIntegerList(jsonString, "rIDs");
+        return  JSON.parseArray(jsonString,Integer.class);
 
     }
 
 
     public void setDestination( List<Integer> regionIds) {
         //转换方法
-        Map<String,Object> idMap = new HashMap<String, Object>(1);
-        idMap.put("rIDs", regionIds);
-        defaultFreight.setDestination(JacksonUtil.toJson(idMap));
+
+        defaultFreight.setDestination(JSON.toJSONString(regionIds));
     }
 
     @Override
