@@ -6,7 +6,7 @@ spring:
     name: test
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/oomall4
+    url: jdbc:mysql://localhost:3306/oomall?serverTimezone=UTC
     username: root
     password: 6892778tt
     druid:

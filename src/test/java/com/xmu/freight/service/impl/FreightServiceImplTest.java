@@ -110,15 +110,15 @@ class FreightServiceImplTest {
         address.setProvinceId(3);
         address.setCityId(39);
         address.setCountyId(510);
-       // DefaultFreightDto defaultFreightDto=defaultFreightDao.findDefaultByAddress(address);
+        //DefaultFreightDto defaultFreightDto=defaultFreightDao.findDefaultByAddress(address);
         List<DefaultFreightDto> ha=defaultFreightDao.getDefaultFreights();
 
         System.out.println("  "+ha.get(0));
 //        List<OrderItemDto> ol=new ArrayList<OrderItemDto>();
 //        ol.add(od1); ol.add(od2);
-
-     //   BigDecimal bd=freightServiceImpl.calculateByDefault(ol,address);
-       // System.out.println("zhi:  "+bd);
+//
+//        BigDecimal bd=freightServiceImpl.calculateByDefault(ol,address);
+//        System.out.println("zhi:  "+bd);
     }
 
     @Test

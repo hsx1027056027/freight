@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
  * @Date: Created in
  * @Modified By:
  **/
-
+@Alias("SpecialFreight")
 public class SpecialFreightDto extends SpecialFreight {
 
 

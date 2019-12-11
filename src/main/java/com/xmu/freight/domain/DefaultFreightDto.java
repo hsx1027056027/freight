@@ -22,7 +22,7 @@ import java.util.*;
  * @Modified By:
  **/
 
-
+@Alias("DefaultFreight")
 public class DefaultFreightDto extends DefaultFreight   {
 
 
