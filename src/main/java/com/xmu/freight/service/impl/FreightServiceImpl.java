@@ -260,6 +260,7 @@ public class FreightServiceImpl implements FreightService {
         for (OrderItemDto orderItemDto : orderItemDtoList)
         {
             allGoodsWeight = allGoodsWeight.add(orderItemDto.getProductDto().getGoods().getWeight().multiply(new BigDecimal(orderItemDto.getOrderItem().getNumber())));
+              System.out.println(allGoodsWeight);
         }
         DefaultFreightDto defaultFreightDto = defaultFreightDao.findDefaultByAddress(address);
         return defaultFreightDto.getDefaultFee(allGoodsWeight);

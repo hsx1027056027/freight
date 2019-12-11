@@ -5,6 +5,7 @@ import com.xmu.freight.standardDomain.Address;
 import com.xmu.freight.standardDomain.DefaultFreight;
 import com.xmu.freight.util.JacksonUtil;
 import com.xmu.freight.vo.OrderItemVo;
+import org.apache.ibatis.type.Alias;
 import org.codehaus.jettison.json.JSONArray;
 import com.alibaba.fastjson.JSON;
 
@@ -20,9 +21,10 @@ import java.util.*;
  * @Date: Created in
  * @Modified By:
  **/
-public class DefaultFreightDto  {
 
-    private DefaultFreight defaultFreight;
+
+public class DefaultFreightDto extends DefaultFreight   {
+
 
     /**
      * 通过默认模板来计算运费
@@ -124,7 +126,7 @@ public class DefaultFreightDto  {
 
     public List<Integer> getDestination() {
         //转换方法
-        String jsonString = defaultFreight.getDestination();
+        String jsonString = super.getDestination();
         return  JSON.parseArray(jsonString,Integer.class);
 
     }
@@ -133,7 +135,7 @@ public class DefaultFreightDto  {
     public void setDestination( List<Integer> regionIds) {
         //转换方法
 
-        defaultFreight.setDestination(JSON.toJSONString(regionIds));
+        super.setDestination(JSON.toJSONString(regionIds));
     }
 
     @Override

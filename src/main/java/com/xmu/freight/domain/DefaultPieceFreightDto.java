@@ -2,12 +2,14 @@ package com.xmu.freight.domain;
 
 import com.xmu.freight.standardDomain.DefaultPieceFreight;
 import com.xmu.freight.util.JacksonUtil;
+import org.apache.ibatis.type.Alias;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 
 public class DefaultPieceFreightDto  {
     private DefaultPieceFreight defaultPieceFreight;

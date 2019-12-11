@@ -41,7 +41,7 @@ spring:
 
 mybatis:
   #domain对象的包
-  type-aliases-package: com.xmu.freight.domain
+  type-aliases-package: com.xmu.freight.standardDomain
   #mapper。xml所在的位置
   mapper-locations: classpath:com.xmu.freight.mapper/*.xml
   configuration:

@@ -16,8 +16,8 @@ class FreightApplicationTests {
 
     @Test
     void contextLoads() {
-        List<DefaultFreightDto> a= freightService.getDefaultFreights();
-        for(DefaultFreightDto s:a)
+        List<DefaultFreight> a= freightService.getDefaultFreights();
+        for(DefaultFreight s:a)
         {
             System.out.println(s);
         }

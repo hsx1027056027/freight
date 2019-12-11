@@ -20,8 +20,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.ArrayList;
 import java.util.List;
 
-@RestController
-@RequestMapping("")// /wx/order
+
 
 public class FreightControllerDto implements FreightController {
     @Autowired

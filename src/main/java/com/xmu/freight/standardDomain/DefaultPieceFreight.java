@@ -1,5 +1,7 @@
 package com.xmu.freight.standardDomain;
 
+import org.apache.ibatis.type.Alias;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -10,7 +12,7 @@ import java.util.Objects;
  * @Date: Created in 16:00 2019/11/29
  * @Modified By:
  **/
-
+@Alias("DefaultPieceFreight")
 public class DefaultPieceFreight {
 
     private Integer id;

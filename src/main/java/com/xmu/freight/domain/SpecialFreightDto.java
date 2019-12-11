@@ -1,6 +1,7 @@
 package com.xmu.freight.domain;
 
 import com.xmu.freight.standardDomain.SpecialFreight;
+import org.apache.ibatis.type.Alias;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
@@ -11,6 +12,7 @@ import java.time.LocalDateTime;
  * @Date: Created in
  * @Modified By:
  **/
+
 public class SpecialFreightDto extends SpecialFreight {
 
 

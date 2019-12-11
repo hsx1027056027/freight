@@ -62,7 +62,7 @@ public class Product {
 
     @Override
     public boolean equals(Object o) {
-        if (defaultFreight == o) {return true;}
+        if (this == o) {return true;}
         if (o == null || getClass() != o.getClass()) {return false;}
         Product product = (Product) o;
         return Objects.equals(id, product.id);
@@ -78,7 +78,7 @@ public class Product {
     }
 
     public void setId(Integer id) {
-        defaultFreight.id = id;
+        this.id = id;
     }
 
     public Integer getGoodsId() {
@@ -86,7 +86,7 @@ public class Product {
     }
 
     public void setGoodsId(Integer goodsId) {
-        defaultFreight.goodsId = goodsId;
+        this.goodsId = goodsId;
     }
 
     public String getProductIds() {
@@ -94,7 +94,7 @@ public class Product {
     }
 
     public void setProductIds(String productIds) {
-        defaultFreight.productIds = productIds;
+        this.productIds = productIds;
     }
 
     public String getPicUrl() {
@@ -102,7 +102,7 @@ public class Product {
     }
 
     public void setPicUrl(String picUrl) {
-        defaultFreight.picUrl = picUrl;
+        this.picUrl = picUrl;
     }
 
     public String getSpecifications() {
@@ -110,7 +110,7 @@ public class Product {
     }
 
     public void setSpecifications(String specifications) {
-        defaultFreight.specifications = specifications;
+        this.specifications = specifications;
     }
 
     public BigDecimal getPrice() {
@@ -118,7 +118,7 @@ public class Product {
     }
 
     public void setPrice(BigDecimal price) {
-        defaultFreight.price = price;
+        this.price = price;
     }
 
     public Integer getSaftyStock() {
@@ -126,7 +126,7 @@ public class Product {
     }
 
     public void setSaftyStock(Integer saftyStock) {
-        defaultFreight.saftyStock = saftyStock;
+        this.saftyStock = saftyStock;
     }
 
 
@@ -135,7 +135,7 @@ public class Product {
     }
 
     public void setGmtCreate(LocalDateTime gmtCreate) {
-        defaultFreight.gmtCreate = gmtCreate;
+        this.gmtCreate = gmtCreate;
     }
 
     public LocalDateTime getGmtModified() {
@@ -143,7 +143,7 @@ public class Product {
     }
 
     public void setGmtModified(LocalDateTime gmtModified) {
-        defaultFreight.gmtModified = gmtModified;
+        this.gmtModified = gmtModified;
     }
 
     public Boolean getBeDeleted() {
@@ -151,6 +151,6 @@ public class Product {
     }
 
     public void setBeDeleted(Boolean beDeleted) {
-        defaultFreight.beDeleted = beDeleted;
+        this.beDeleted = beDeleted;
     }
 }
