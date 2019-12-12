@@ -10,6 +10,7 @@ import lombok.ToString;
  * @Description:地址对象
  * @Data:Created in 14:50 2019/12/11
  **/
+
 @EqualsAndHashCode(callSuper = true)
 public class Address extends AddressPo {
 

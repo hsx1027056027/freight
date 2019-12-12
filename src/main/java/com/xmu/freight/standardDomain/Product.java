@@ -10,10 +10,16 @@ import lombok.ToString;
  * @Description:产品对象
  * @Data:Created in 14:50 2019/12/11
  **/
-@Getter
-@Setter
-@ToString
+
 @EqualsAndHashCode(callSuper = true)
 public class Product extends ProductPo {
     private GoodsPo goodsPo;
+
+    public GoodsPo getGoodsPo() {
+        return goodsPo;
+    }
+
+    public void setGoodsPo(GoodsPo goodsPo) {
+        this.goodsPo = goodsPo;
+    }
 }

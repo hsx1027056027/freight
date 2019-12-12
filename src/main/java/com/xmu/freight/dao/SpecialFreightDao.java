@@ -4,6 +4,7 @@ import com.xmu.freight.domain.DefaultPieceFreightDto;
 import com.xmu.freight.domain.SpecialFreightDto;
 import com.xmu.freight.mapper.SpecialFreightMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Repository;
 import com.xmu.freight.standardDomain.*;
 
@@ -14,6 +15,9 @@ import java.util.List;
 public class SpecialFreightDao {
     @Autowired
     SpecialFreightMapper specialFreightMapper;
+
+    @Autowired
+    RedisTemplate redisTemplate;
 
     /**
      * 根据目的地址获得默认比率
