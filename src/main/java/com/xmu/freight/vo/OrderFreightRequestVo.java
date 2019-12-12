@@ -1,23 +1,21 @@
 package com.xmu.freight.vo;
 
-import com.xmu.freight.standardDomain.Address;
-import com.xmu.freight.standardDomain.Goods;
-import com.xmu.freight.standardDomain.OrderItem;
 
-import java.util.HashMap;
+import com.xmu.freight.standardDomain.*;
+
 import java.util.List;
 
 public class OrderFreightRequestVo {
-    private Address address;
+    private AddressPo addressPo;
 
     private List<OrderItemVo> orderItemVoList;
 
-    public Address getAddress() {
-        return address;
+    public AddressPo getAddressPo() {
+        return addressPo;
     }
 
-    public void setAddress(Address address) {
-        this.address = address;
+    public void setAddressPo(AddressPo addressPo) {
+        this.addressPo = addressPo;
     }
 
 

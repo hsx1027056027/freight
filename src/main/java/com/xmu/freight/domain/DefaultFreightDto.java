@@ -1,10 +1,10 @@
 package com.xmu.freight.domain;
 
 
-import com.xmu.freight.standardDomain.DefaultFreight;
+import com.xmu.freight.util.JacksonUtil;
 import org.apache.ibatis.type.Alias;
 import com.alibaba.fastjson.JSON;
-
+import com.xmu.freight.standardDomain.*;
 
 import java.math.BigDecimal;
 import java.util.*;
@@ -18,7 +18,7 @@ import java.util.*;
  **/
 
 @Alias("DefaultFreight")
-public class DefaultFreightDto extends DefaultFreight   {
+public class DefaultFreightDto extends DefaultFreightPo {
 
 
     /**
@@ -142,13 +142,16 @@ public class DefaultFreightDto extends DefaultFreight   {
 
     public List<Integer> getDestinationList() {
         //转换方法
-        String jsonString = super.getDestination();
-        return  JSON.parseArray(jsonString,Integer.class);
+        String jsonString = this.getDestination();
+        jsonString = org.apache.commons.text.StringEscapeUtils.unescapeJson(jsonString);
+        return JacksonUtil.parseIntegerList(jsonString, "dest");
     }
 
     public void setDestinationList( List<Integer> regionIds) {
         //转换方法
-        super.setDestination(JSON.toJSONString(regionIds));
+        Map<String,Object> idMap = new HashMap<String, Object>(1);
+        idMap.put("dest", regionIds);
+        super.setDestination(JacksonUtil.toJson(idMap));
     }
 
     @Override

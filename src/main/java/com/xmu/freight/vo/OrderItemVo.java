@@ -1,26 +1,25 @@
 package com.xmu.freight.vo;
 
-import com.xmu.freight.standardDomain.Goods;
-import com.xmu.freight.standardDomain.OrderItem;
+import com.xmu.freight.standardDomain.*;
 
 public class OrderItemVo {
-    private OrderItem orderItem;
+    private OrderItemPo orderItemPo;
 
-    private Goods goods;
+    private GoodsPo goodsPo;
 
-    public OrderItem getOrderItem() {
-        return orderItem;
+    public OrderItemPo getOrderItemPo() {
+        return orderItemPo;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+    public void setOrderItemPo(OrderItemPo orderItemPo) {
+        this.orderItemPo = orderItemPo;
     }
 
-    public Goods getGoods() {
-        return goods;
+    public GoodsPo getGoodsPo() {
+        return goodsPo;
     }
 
-    public void setGoods(Goods goods) {
-        this.goods = goods;
+    public void setGoodsPo(GoodsPo goodsPo) {
+        this.goodsPo = goodsPo;
     }
 }

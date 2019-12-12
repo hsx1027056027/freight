@@ -1,7 +1,6 @@
 package com.xmu.freight.domain;
 
-import com.xmu.freight.standardDomain.Goods;
-import com.xmu.freight.standardDomain.Product;
+import com.xmu.freight.standardDomain.*;
 
 /**
  * @author hsx
@@ -9,37 +8,37 @@ import com.xmu.freight.standardDomain.Product;
  * @date 2019/12/11 14:49
  */
 public class ProductDto {
-    private Product product;
+    private ProductPo productPo;
 
-    private Goods goods;
+    private GoodsPo goodsPo;
 
     public ProductDto(){ };
 
-    public ProductDto(Goods goods)
+    public ProductDto(GoodsPo goodsPo)
     {
-        this.goods = goods;
+        this.goodsPo = goodsPo;
     }
 
-    public ProductDto(Goods goods,Product product)
+    public ProductDto(GoodsPo goodsPo, ProductPo productPo)
     {
-        this.product = product;
-        this.goods = goods;
+        this.productPo = productPo;
+        this.goodsPo = goodsPo;
     }
 
 
-    public Product getProduct() {
-        return product;
+    public ProductPo getProductPo() {
+        return productPo;
     }
 
-    public void setProduct(Product product) {
-        this.product = product;
+    public void setProductPo(ProductPo productPo) {
+        this.productPo = productPo;
     }
 
-    public Goods getGoods() {
-        return goods;
+    public GoodsPo getGoodsPo() {
+        return goodsPo;
     }
 
-    public void setGoods(Goods goods) {
-        this.goods = goods;
+    public void setGoodsPo(GoodsPo goodsPo) {
+        this.goodsPo = goodsPo;
     }
 }

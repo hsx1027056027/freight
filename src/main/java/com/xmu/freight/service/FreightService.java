@@ -4,9 +4,8 @@ import com.xmu.freight.domain.DefaultFreightDto;
 import com.xmu.freight.domain.DefaultPieceFreightDto;
 import com.xmu.freight.domain.OrderItemDto;
 import com.xmu.freight.domain.SpecialFreightDto;
-import com.xmu.freight.standardDomain.Address;
-import com.xmu.freight.vo.OrderItemVo;
 import org.springframework.stereotype.Service;
+import com.xmu.freight.standardDomain.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -51,5 +50,5 @@ public interface FreightService {
 
     public DefaultPieceFreightDto deleteDefaultPieceFreight(Integer id);
 
-    BigDecimal getFreight(List<OrderItemDto> orderItemDtooList, Address address);
+    BigDecimal getFreight(List<OrderItemDto> orderItemDtooList, AddressPo addressPo);
 }

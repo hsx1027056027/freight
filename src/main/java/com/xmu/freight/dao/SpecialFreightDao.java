@@ -3,9 +3,9 @@ package com.xmu.freight.dao;
 import com.xmu.freight.domain.DefaultPieceFreightDto;
 import com.xmu.freight.domain.SpecialFreightDto;
 import com.xmu.freight.mapper.SpecialFreightMapper;
-import com.xmu.freight.standardDomain.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.xmu.freight.standardDomain.*;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -17,27 +17,27 @@ public class SpecialFreightDao {
 
     /**
      * 根据目的地址获得默认比率
-     * @param address 目的地址
+     * @param addressPo 目的地址
      * @return BigDecimal 比率
      */
-    public BigDecimal findRateOfDefaultPieceByAddress(Address address)
+    public BigDecimal findRateOfDefaultPieceByAddress(AddressPo addressPo)
     {
         List<DefaultPieceFreightDto> defaultPieceFreightDtoList = this.getDefaultPieceFreight();
-        BigDecimal result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList,address.getProvinceId());
+        BigDecimal result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList, addressPo.getProvinceId());
         if(result != null)
         {
             return result;
         }
         else
         {
-            result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList,address.getCityId());
+            result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList, addressPo.getCityId());
             if(result !=null)
             {
                 return result;
             }
             else
             {
-                result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList,address.getCountyId());
+                result = this.findRateOfDefaultPieceByRegionId(defaultPieceFreightDtoList, addressPo.getCountyId());
                 return result;
             }
         }
@@ -49,7 +49,7 @@ public class SpecialFreightDao {
      * @param id 地区id
      * @return BigDecimal 比率
      */
-    public BigDecimal findRateOfDefaultPieceByRegionId(List<DefaultPieceFreightDto> defaultPieceFreightDtoList,Integer id)
+    public BigDecimal findRateOfDefaultPieceByRegionId(List<DefaultPieceFreightDto> defaultPieceFreightDtoList, Integer id)
     {
         for(DefaultPieceFreightDto defaultPieceFreightDto:defaultPieceFreightDtoList)
         {
@@ -79,7 +79,7 @@ public class SpecialFreightDao {
      * @return List<SpecialFreightDto> 所有的运费模板
      */
     public List<SpecialFreightDto> getSpecialFreightsAll(){
-        return specialFreightMapper.getSpecialFreights();
+        return specialFreightMapper.getSpecialFreightsAll();
     }
 
     /**
@@ -122,7 +122,7 @@ public class SpecialFreightDao {
      * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
      */
     public List<DefaultPieceFreightDto> getDefaultPieceFreightAll(){
-        return specialFreightMapper.getDefaultPieceFreight();
+        return specialFreightMapper.getDefaultPieceFreightAll();
     }
 
     /**

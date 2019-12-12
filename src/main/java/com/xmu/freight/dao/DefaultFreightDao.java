@@ -2,9 +2,9 @@ package com.xmu.freight.dao;
 
 import com.xmu.freight.domain.DefaultFreightDto;
 import com.xmu.freight.mapper.DefaultFreightMapper;
-import com.xmu.freight.standardDomain.Address;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
+import com.xmu.freight.standardDomain.*;
 
 import java.util.List;
 
@@ -15,26 +15,26 @@ public class DefaultFreightDao {
 
     /**
      * 根据目的地址获得一行默认模板
-     * @param address 目的地址
+     * @param addressPo 目的地址
      * @return DefaultFreightDto 一行默认模板
      */
-    public DefaultFreightDto findDefaultByAddress(Address address){
+    public DefaultFreightDto findDefaultByAddress(AddressPo addressPo){
         List<DefaultFreightDto> defaultFreightDtoList = this.getDefaultFreights();
-        DefaultFreightDto result = this.findDefaultByRegionId(defaultFreightDtoList,address.getProvinceId());
+        DefaultFreightDto result = this.findDefaultByRegionId(defaultFreightDtoList, addressPo.getProvinceId());
         if(result != null)
         {
             return result;
         }
         else
         {
-            result = this.findDefaultByRegionId(defaultFreightDtoList,address.getCityId());
+            result = this.findDefaultByRegionId(defaultFreightDtoList, addressPo.getCityId());
             if(result !=null)
             {
                 return result;
             }
             else
             {
-                result = this.findDefaultByRegionId(defaultFreightDtoList,address.getCountyId());
+                result = this.findDefaultByRegionId(defaultFreightDtoList, addressPo.getCountyId());
                 return result;
             }
         }
@@ -46,7 +46,7 @@ public class DefaultFreightDao {
      * @param id 地区id
      * @return DefaultFreightDto 一行默认模板
      */
-    public DefaultFreightDto findDefaultByRegionId(List<DefaultFreightDto> defaultFreightDtoList,Integer id){
+    public DefaultFreightDto findDefaultByRegionId(List<DefaultFreightDto> defaultFreightDtoList, Integer id){
         for(DefaultFreightDto defaultFreightDto:defaultFreightDtoList)
         {
             for(int regionId : defaultFreightDto.getDestinationList())

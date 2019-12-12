@@ -1,7 +1,7 @@
 package com.xmu.freight.domain;
 
-import com.xmu.freight.standardDomain.OrderItem;
-import com.xmu.freight.standardDomain.Product;
+
+import com.xmu.freight.standardDomain.*;
 
 /**
  * @author hsx
@@ -9,16 +9,16 @@ import com.xmu.freight.standardDomain.Product;
  * @date 2019/12/11 14:48
  */
 public class OrderItemDto {
-    private OrderItem orderItem;
+    private OrderItemPo orderItemPo;
 
     private ProductDto productDto;
 
-    public OrderItem getOrderItem() {
-        return orderItem;
+    public OrderItemPo getOrderItemPo() {
+        return orderItemPo;
     }
 
-    public void setOrderItem(OrderItem orderItem) {
-        this.orderItem = orderItem;
+    public void setOrderItemPo(OrderItemPo orderItemPo) {
+        this.orderItemPo = orderItemPo;
     }
 
     public ProductDto getProductDto() {

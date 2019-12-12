@@ -7,17 +7,21 @@ import com.xmu.freight.domain.DefaultPieceFreightDto;
 import com.xmu.freight.domain.OrderItemDto;
 import com.xmu.freight.domain.SpecialFreightDto;
 import com.xmu.freight.service.FreightService;
-import com.xmu.freight.standardDomain.Address;
-import com.xmu.freight.standardDomain.Goods;
-import com.xmu.freight.vo.OrderItemVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.xmu.freight.standardDomain.*;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @Author: ooad team
+ * @Description: 运费业务逻辑
+ * @Date: Created in
+ * @Modified By:
+ **/
 @Service
 public class FreightServiceImpl implements FreightService {
     @Autowired
@@ -243,32 +247,35 @@ public class FreightServiceImpl implements FreightService {
     /**
      * 获得运费
      * @param orderItemDtoList
-     * @param address 目的地
+     * @param addressPo 目的地
      * @return BigDecimal运费
      */
     @Override
-    public BigDecimal getFreight(List<OrderItemDto> orderItemDtoList, Address address) {
+    public BigDecimal getFreight(List<OrderItemDto> orderItemDtoList, AddressPo addressPo) {
         boolean special = false;
         List<BigDecimal> result = new ArrayList<BigDecimal>();
-        for (OrderItemDto orderItemDto : orderItemDtoList)//判断是否有特殊商品
+        //判断是否有特殊商品
+        for (OrderItemDto orderItemDto : orderItemDtoList)
         {
-            if (orderItemDto.getProductDto().getGoods().getBeSpecial() == true)
+            if (orderItemDto.getProductDto().getGoodsPo().getBeSpecial() == true)
             {
                 special = true;
                 break;
             }
         }
-        BigDecimal fee = calculateByDefault(orderItemDtoList,address);//按照默认模板计算运费
+        //按照默认模板计算运费
+        BigDecimal fee = calculateByDefault(orderItemDtoList, addressPo);
         result.add(fee);
         if(special == true) {
             int allGoodsNum = 0;
-            for (OrderItemDto orderItemDto : orderItemDtoList)//计算总件数
+            //计算总件数
+            for (OrderItemDto orderItemDto : orderItemDtoList)
             {
-                allGoodsNum += orderItemDto.getOrderItem().getNumber();
+                allGoodsNum += orderItemDto.getOrderItemPo().getNumber();
             }
             for (OrderItemDto orderItemDto : orderItemDtoList) {
-                if (orderItemDto.getProductDto().getGoods().getBeSpecial() == true) {
-                    fee = calculateBySpecial(orderItemDto.getProductDto().getGoods(),address,allGoodsNum);
+                if (orderItemDto.getProductDto().getGoodsPo().getBeSpecial() == true) {
+                    fee = calculateBySpecial(orderItemDto.getProductDto().getGoodsPo(), addressPo,allGoodsNum);
                     result.add(fee);
                 }
             }
@@ -279,33 +286,33 @@ public class FreightServiceImpl implements FreightService {
     /**
      * 用默认模板计算运费
      * @param orderItemDtoList
-     * @param address 目的地
+     * @param addressPo 目的地
      * @return BigDecimal运费
      */
-    public BigDecimal calculateByDefault(List<OrderItemDto> orderItemDtoList, Address address)
+    public BigDecimal calculateByDefault(List<OrderItemDto> orderItemDtoList, AddressPo addressPo)
     {
         BigDecimal allGoodsWeight = new BigDecimal("0.00");
         for (OrderItemDto orderItemDto : orderItemDtoList)
         {
-            BigDecimal weightPer = orderItemDto.getProductDto().getGoods().getWeight();
-            BigDecimal number = new BigDecimal(orderItemDto.getOrderItem().getNumber());
+            BigDecimal weightPer = orderItemDto.getProductDto().getGoodsPo().getWeight();
+            BigDecimal number = new BigDecimal(orderItemDto.getOrderItemPo().getNumber());
             allGoodsWeight = allGoodsWeight.add(weightPer.multiply(number));
         }
-        DefaultFreightDto defaultFreightDto = defaultFreightDao.findDefaultByAddress(address);
+        DefaultFreightDto defaultFreightDto = defaultFreightDao.findDefaultByAddress(addressPo);
         return defaultFreightDto.getDefaultFee(allGoodsWeight);
     }
 
     /**
      * 用特殊模板获得运费
      * @param good 特殊的商品
-     * @param address 目的地
+     * @param addressPo 目的地
      * @param allGoodsNum 商品总件数
      * @return BigDecimal运费
      */
-    public BigDecimal calculateBySpecial(Goods good, Address address,Integer allGoodsNum)
+    public BigDecimal calculateBySpecial(GoodsPo good, AddressPo addressPo, Integer allGoodsNum)
     {
         SpecialFreightDto specialFreightDto = specialFreightDao.findSpecialFreightById(good.getSpecialFreightId());
-        BigDecimal rate = specialFreightDao.findRateOfDefaultPieceByAddress(address);
+        BigDecimal rate = specialFreightDao.findRateOfDefaultPieceByAddress(addressPo);
         return specialFreightDto.getSpecialFee(rate,allGoodsNum);
     }
 

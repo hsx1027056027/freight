@@ -4,15 +4,15 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.xmu.freight.mapper.SpecialFreightMapper">
 
-    <resultMap id="specialFreight" type="SpecialFreight">
+    <resultMap id="specialFreightPo" type="SpecialFreight">
         <result property="beDeleted" column="is_deleted"/>
     </resultMap>
 
-    <resultMap id="defaultPieceFreight" type="DefaultPieceFreight">
+    <resultMap id="defaultPieceFreightPo" type="DefaultPieceFreight">
         <result property="beDeleted" column="is_deleted"/>
     </resultMap>
 
-    <select id="getSpecialFreights" resultMap="specialFreight">
+    <select id="getSpecialFreights" resultMap="specialFreightPo">
               select id,
               first_num_piece,
               first_num_piece_price,
@@ -25,7 +25,7 @@
               where is_deleted!=true
     </select>
 
-    <select id="getSpecialFreightsAll" resultMap="specialFreight">
+    <select id="getSpecialFreightsAll" resultMap="specialFreightPo">
               select id,
               first_num_piece,
               first_num_piece_price,
@@ -38,7 +38,7 @@
               where id!=0
     </select>
 
-    <select id="findSpecialFreightById" resultMap="specialFreight" parameterType="Integer">
+    <select id="findSpecialFreightById" resultMap="specialFreightPo" parameterType="Integer">
            select id,
               first_num_piece,
               first_num_piece_price,
@@ -80,7 +80,7 @@
          where id=#{id}
     </update>
 
-    <select id="getDefaultPieceFreight" resultMap="defaultPieceFreight">
+    <select id="getDefaultPieceFreight" resultMap="defaultPieceFreightPo">
         select id,
         destination,
         unit_rate,
@@ -92,7 +92,7 @@
         where is_deleted!=true
     </select>
 
-    <select id="getDefaultPieceFreightALl" resultMap="defaultPieceFreight">
+    <select id="getDefaultPieceFreightAll" resultMap="defaultPieceFreightPo">
         select id,
         destination,
         unit_rate,
@@ -105,7 +105,7 @@
     </select>
 
 
-    <select id="findDefaultPieceFreightById" resultMap="defaultPieceFreight" parameterType="Integer">
+    <select id="findDefaultPieceFreightById" resultMap="defaultPieceFreightPo" parameterType="Integer">
           select id,
         destination,
         unit_rate,

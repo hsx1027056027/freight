@@ -1,18 +1,20 @@
 package com.xmu.freight.standardDomain;
 
-import org.apache.ibatis.type.Alias;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
-import java.util.Objects;
 
 /**
  * @Author: 数据库与对象模型标准组
  * @Description: 特殊运费模板
- * @Date: Created in
- * @Modified By:
+ * @Date: Created in 16:00 2019/12/11
  **/
 
+@EqualsAndHashCode
 public class SpecialFreight {
 
     private Integer id;
@@ -36,33 +38,6 @@ public class SpecialFreight {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
     private Boolean beDeleted;
-
-    @Override
-    public String toString() {
-        return "SpecialFreight{" +
-                "id=" + id +
-                ", firstNumPiece=" + firstNumPiece +
-                ", firstNumPiecePrice=" + firstNumPiecePrice +
-                ", continueNumPiece=" + continueNumPiece +
-                ", continueNumPiecePrice=" + continueNumPiecePrice +
-                ", gmtCreate=" + gmtCreate +
-                ", gmtModified=" + gmtModified +
-                ", beDeleted=" + beDeleted +
-                '}';
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) {return true;}
-        if (o == null || getClass() != o.getClass()) {return false;}
-        SpecialFreight that = (SpecialFreight) o;
-        return Objects.equals(id, that.id);
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id);
-    }
 
     public Integer getId() {
         return id;

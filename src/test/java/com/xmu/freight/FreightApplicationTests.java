@@ -1,16 +1,13 @@
 package com.xmu.freight;
 
 import com.xmu.freight.dao.DefaultFreightDao;
-import com.xmu.freight.dao.SpecialFreightDao;
 import com.xmu.freight.domain.*;
 import com.xmu.freight.service.FreightService;
 import com.xmu.freight.service.impl.FreightServiceImpl;
-import com.xmu.freight.standardDomain.Address;
-import com.xmu.freight.standardDomain.Goods;
-import com.xmu.freight.standardDomain.OrderItem;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import com.xmu.freight.standardDomain.*;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -87,35 +84,35 @@ class FreightApplicationTests {
     private FreightServiceImpl freightServiceImpl;
     @Test
     void testha(){
-        OrderItem o1=new OrderItem();
+        OrderItemPo o1=new OrderItemPo();
         o1.setNumber(3);
-        OrderItem o2=new OrderItem();
+        OrderItemPo o2=new OrderItemPo();
         o2.setNumber(2);
-        Goods g1=new Goods();
+        GoodsPo g1=new GoodsPo();
         g1.setWeight(new BigDecimal(3.0));
         g1.setBeSpecial(true);
         g1.setSpecialFreightId(2);
-        Goods g2=new Goods();
+        GoodsPo g2=new GoodsPo();
         g2.setWeight(new BigDecimal(2));
         g2.setBeSpecial(true);
         g2.setSpecialFreightId(1);
         ProductDto p1=new ProductDto(g1,null );
         ProductDto p2=new ProductDto(g2,null);
         OrderItemDto od1=new OrderItemDto();
-        od1.setOrderItem(o1); od1.setProductDto(p1);
+        od1.setOrderItemPo(o1); od1.setProductDto(p1);
         OrderItemDto od2=new OrderItemDto();
-        od2.setOrderItem(o2);
+        od2.setOrderItemPo(o2);
         od2.setProductDto(p2);
-        Address address=new Address();
-        address.setProvinceId(3);
-        address.setCityId(39);
-        address.setCountyId(510);
-        //DefaultFreightDto defaultFreightDto=defaultFreightDao.findDefaultByAddress(address);
+        AddressPo addressPo =new AddressPo();
+        addressPo.setProvinceId(3);
+        addressPo.setCityId(39);
+        addressPo.setCountyId(510);
+        //DefaultFreightDto defaultFreightDto=defaultFreightDao.findDefaultByAddress(addressPo);
 
         List<OrderItemDto> ol=new ArrayList<OrderItemDto>();
         ol.add(od1); ol.add(od2);
 
-        BigDecimal bd=freightServiceImpl.getFreight(ol,address);
+        BigDecimal bd=freightServiceImpl.getFreight(ol, addressPo);
         System.out.println("zhi:  "+bd);
     }
 
