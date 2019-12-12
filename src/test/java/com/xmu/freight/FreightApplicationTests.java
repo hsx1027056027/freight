@@ -16,7 +16,7 @@ import java.util.List;
 @SpringBootTest
 class FreightApplicationTests {
     @Autowired
-    private FreightService freightService;
+    private FreightServiceImpl freightService;
 
     @Autowired
     private DefaultFreightDao defaultFreightDao;
@@ -75,9 +75,10 @@ class FreightApplicationTests {
         t3=freightService.updateDefaultPieceFreight(t3);
         System.out.println("回来了"+t3);
 
-        List<DefaultFreightDto> ha=defaultFreightDao.getDefaultFreights();
+        List<DefaultFreightDto> ha=defaultFreightDao.getDefaultFreightsFromRedis();
 
         System.out.println("  "+ha.get(0));
+        System.out.println("  "+ha.get(0).getDestinationList());
     }
 
     @Autowired
@@ -116,6 +117,21 @@ class FreightApplicationTests {
         System.out.println("zhi:  "+bd);
     }
 
+
+    @Test
+    void t1()
+    {
+        AddressPo addressPo =new AddressPo();
+        addressPo.setProvinceId(3);
+        addressPo.setCityId(39);
+        addressPo.setCountyId(510);
+        //DefaultFreightDto defaultFreightDto=defaultFreightDao.findDefaultByAddress(addressPo);
+        DefaultFreightDto ha=defaultFreightDao.findDefaultByAddress(addressPo);
+        System.out.println("1:  "+ha.getDestinationList());
+        System.out.println("2:  "+ha.getFirstHeavyPrice());
+        System.out.println("3:  "+ha.getRequireDays());
+        System.out.println(ha);
+    }
 
 
 

@@ -8,17 +8,17 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
-@EnableEurekaClient
+//@EnableEurekaClient
 public class FreightApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(FreightApplication.class, args);
     }
 
-    @Bean
-    @LoadBalanced
-    RestTemplate restTemplate(){
-        return new RestTemplate();
-    }
+//    @Bean
+//    @LoadBalanced
+//    RestTemplate restTemplate(){
+//        return new RestTemplate();
+//    }
 
 }

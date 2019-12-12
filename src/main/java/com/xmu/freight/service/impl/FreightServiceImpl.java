@@ -311,7 +311,7 @@ public class FreightServiceImpl implements FreightService {
      */
     public BigDecimal calculateBySpecial(GoodsPo good, AddressPo addressPo, Integer allGoodsNum)
     {
-        SpecialFreightDto specialFreightDto = specialFreightDao.findSpecialFreightById(good.getSpecialFreightId());
+        SpecialFreightDto specialFreightDto = specialFreightDao.findSpecialFreightByIdFromRedis(good.getSpecialFreightId());
         BigDecimal rate = specialFreightDao.findRateOfDefaultPieceByAddress(addressPo);
         return specialFreightDto.getSpecialFee(rate,allGoodsNum);
     }
