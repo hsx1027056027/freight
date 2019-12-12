@@ -67,13 +67,20 @@ public class SpecialFreightDao {
 
 
     /**
-     * 获得所有的特殊运费模板
+     * 获得所有的特殊运费模板(未删除的）
      * @return List<SpecialFreightDto> 所有的运费模板
      */
     public List<SpecialFreightDto> getSpecialFreights(){
         return specialFreightMapper.getSpecialFreights();
     }
 
+    /**
+     * 获得所有的特殊运费模板(所有的）
+     * @return List<SpecialFreightDto> 所有的运费模板
+     */
+    public List<SpecialFreightDto> getSpecialFreightsAll(){
+        return specialFreightMapper.getSpecialFreights();
+    }
 
     /**
      *通过Id获得特殊运费模板
@@ -103,10 +110,18 @@ public class SpecialFreightDao {
     }
 
     /**
-     * 获得所有默认特殊模板
+     * 获得所有默认特殊模板（未删除的）
      * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
      */
     public List<DefaultPieceFreightDto> getDefaultPieceFreight(){
+        return specialFreightMapper.getDefaultPieceFreight();
+    }
+
+    /**
+     * 获得所有默认特殊模板（所有的)
+     * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
+     */
+    public List<DefaultPieceFreightDto> getDefaultPieceFreightAll(){
         return specialFreightMapper.getDefaultPieceFreight();
     }
 

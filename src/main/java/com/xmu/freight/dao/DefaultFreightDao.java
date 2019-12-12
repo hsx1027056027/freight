@@ -61,10 +61,18 @@ public class DefaultFreightDao {
     }
 
     /**
-     * 获得默认运费模板列表
+     * 获得默认运费模板列表(未删除的）
      * @return List<DefaultFreightDto>模板列表
      */
     public List<DefaultFreightDto> getDefaultFreights(){
+        return defaultFreightMapper.getDefaultFreights();
+    }
+
+    /**
+     * 获得默认运费模板列表（所有的）
+     * @return List<DefaultFreightDto>模板列表
+     */
+    public List<DefaultFreightDto> getDefaultFreightsAll(){
         return defaultFreightMapper.getDefaultFreights();
     }
 

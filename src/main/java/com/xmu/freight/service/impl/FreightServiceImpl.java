@@ -27,12 +27,21 @@ public class FreightServiceImpl implements FreightService {
     SpecialFreightDao specialFreightDao;
 
     /**
-     * 获得默认运费模板列表
+     * 获得默认运费模板列表（未删除的）
      * @return List<DefaultFreightDto>模板列表
      */
     @Override
     public List<DefaultFreightDto> getDefaultFreights() {
         return defaultFreightDao.getDefaultFreights();
+    }
+
+    /**
+     * 获得默认运费模板列表（所有的）
+     * @return List<DefaultFreightDto>模板列表
+     */
+    @Override
+    public List<DefaultFreightDto> getDefaultFreightsAll() {
+        return defaultFreightDao.getDefaultFreightsAll();
     }
 
     /**
@@ -90,12 +99,21 @@ public class FreightServiceImpl implements FreightService {
     }
 
     /**
-     * 获得所有的特殊运费模板
+     * 获得所有的特殊运费模板（未删除的）
      * @return List<SpecialFreightDto> 所有的运费模板
      */
     @Override
     public List<SpecialFreightDto> getSpecialFreights() {
         return specialFreightDao.getSpecialFreights();
+    }
+
+    /**
+     * 获得所有的特殊运费模板（所有的）
+     * @return List<SpecialFreightDto> 所有的运费模板
+     */
+    @Override
+    public List<SpecialFreightDto> getSpecialFreightsAll() {
+        return specialFreightDao.getSpecialFreightsAll();
     }
 
     /**
@@ -151,12 +169,22 @@ public class FreightServiceImpl implements FreightService {
     }
 
     /**
-     * 获得所有默认特殊模板
+     * 获得所有默认特殊模板（未删除的）
      * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
      */
     @Override
     public List<DefaultPieceFreightDto> getDefaultPieceFreight() {
         return specialFreightDao.getDefaultPieceFreight();
+    }
+
+
+    /**
+     * 获得所有默认特殊模板（所有的）
+     * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
+     */
+    @Override
+    public List<DefaultPieceFreightDto> getDefaultPieceFreightAll() {
+        return specialFreightDao.getDefaultPieceFreightAll();
     }
 
     /**

@@ -17,6 +17,8 @@ public interface FreightService {
 
     public List<DefaultFreightDto> getDefaultFreights();
 
+    public List<DefaultFreightDto> getDefaultFreightsAll();
+
     public DefaultFreightDto findDefaultFreightById(Integer id);
 
     public DefaultFreightDto updateDefaultFreight(DefaultFreightDto defaultFreightDto);
@@ -27,6 +29,8 @@ public interface FreightService {
 
     public List<SpecialFreightDto> getSpecialFreights();
 
+    public List<SpecialFreightDto> getSpecialFreightsAll();
+
     public SpecialFreightDto findSpecialFreightById(Integer id);
 
     public SpecialFreightDto updateSpecialFreight(SpecialFreightDto specialFreightDto);
@@ -36,6 +40,8 @@ public interface FreightService {
     public SpecialFreightDto deleteSpecialFreight(Integer id);
 
     public List<DefaultPieceFreightDto> getDefaultPieceFreight();
+
+    public List<DefaultPieceFreightDto> getDefaultPieceFreightAll();
 
     public DefaultPieceFreightDto findDefaultPieceFreightById(Integer id);
 

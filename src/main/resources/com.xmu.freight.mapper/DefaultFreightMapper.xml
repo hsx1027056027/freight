@@ -18,6 +18,20 @@
           gmt_modified,
           is_deleted
           from default_freight
+          where is_deleted!=true
+   </select>
+
+    <select id="getDefaultFreightsAll" resultMap="defaultFreight" >
+          select id,
+          destination,
+          first_heavy_price,
+          continue_heavy_price,
+          over10_price,over50_price,over100_price,over300_price,
+          require_days,
+          gmt_create,
+          gmt_modified,
+          is_deleted
+          from default_freight
           where id!=0
    </select>
 

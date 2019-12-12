@@ -12,10 +12,16 @@ import java.util.List;
 public interface SpecialFreightMapper {
 
     /**
-     * 获得所有的特殊运费模板
+     * 获得所有的特殊运费模板(未删除的）
      * @return List<SpecialFreightDto> 所有的运费模板
      */
     public List<SpecialFreightDto> getSpecialFreights();
+
+    /**
+     * 获得所有的特殊运费模板（所有的）
+     * @return List<SpecialFreightDto> 所有的运费模板
+     */
+    public List<SpecialFreightDto> getSpecialFreightsAll();
 
     /**
      *通过Id获得特殊运费模板
@@ -40,10 +46,16 @@ public interface SpecialFreightMapper {
     public void addSpecialFreight(SpecialFreightDto specialFreightDto);
 
     /**
-     * 获得所有默认特殊模板
+     * 获得所有默认特殊模板(未删除的）
      * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
      */
     public List<DefaultPieceFreightDto> getDefaultPieceFreight();
+
+    /**
+     * 获得所有默认特殊模板（所有的）
+     * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
+     */
+    public List<DefaultPieceFreightDto> getDefaultPieceFreightAll();
 
     /**
      * 删除某个默认特殊模板

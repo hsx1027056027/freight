@@ -11,11 +11,16 @@ import java.util.List;
 public interface DefaultFreightMapper {
 
     /**
-     * 获得默认运费模板列表
+     * 获得默认运费模板列表（未删除的）
      * @return List<DefaultFreightDto>模板列表
      */
     public List<DefaultFreightDto> getDefaultFreights();
 
+    /**
+     * 获得默认运费模板列表（所有的）
+     * @return List<DefaultFreightDto>模板列表
+     */
+    public List<DefaultFreightDto> getDefaultFreightsAll();
     /**
      * 通过id查看运费模板
      * @param id 模板Id

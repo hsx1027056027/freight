@@ -22,6 +22,19 @@
               gmt_modified,
               is_deleted
               from special_freight
+              where is_deleted!=true
+    </select>
+
+    <select id="getSpecialFreightsAll" resultMap="specialFreight">
+              select id,
+              first_num_piece,
+              first_num_piece_price,
+              continue_num_piece,
+              continue_num_piece_price,
+              gmt_create,
+              gmt_modified,
+              is_deleted
+              from special_freight
               where id!=0
     </select>
 
@@ -76,8 +89,21 @@
         gmt_modified,
         is_deleted
         from default_piece_freight
+        where is_deleted!=true
+    </select>
+
+    <select id="getDefaultPieceFreightALl" resultMap="defaultPieceFreight">
+        select id,
+        destination,
+        unit_rate,
+        require_days,
+        gmt_create,
+        gmt_modified,
+        is_deleted
+        from default_piece_freight
         where id!=0
     </select>
+
 
     <select id="findDefaultPieceFreightById" resultMap="defaultPieceFreight" parameterType="Integer">
           select id,
