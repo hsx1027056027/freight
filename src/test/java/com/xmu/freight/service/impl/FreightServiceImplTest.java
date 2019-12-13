@@ -122,19 +122,21 @@ class FreightServiceImplTest {
 
     @Test
     void getMaxResult() {
+
+    }
     }
 
-    @Autowired
-    RedisTemplate redisTemplate;
-    @Test
-    void haha()
-    {
-        List newList = new ArrayList();
-        newList.add("o");
-        newList.add("p");
-        newList.add("q");
-        redisTemplate.opsForList().leftPushAll("list",newList);
-        List list =  redisTemplate.opsForList().range("list",0,-1);
-        System.out.println("通过leftPushAll(K key, Collection<V> values)方法以集合的方式批量添加元素:" + list);
-    }
-}
+//    @Autowired
+//    RedisTemplate redisTemplate;
+//    @Test
+//    void haha()
+//    {
+//        List newList = new ArrayList();
+//        newList.add("o");
+//        newList.add("p");
+//        newList.add("q");
+//        redisTemplate.opsForList().leftPushAll("list",newList);
+//        List list =  redisTemplate.opsForList().range("list",0,-1);
+//        System.out.println("通过leftPushAll(K key, Collection<V> values)方法以集合的方式批量添加元素:" + list);
+//    }
+//}
