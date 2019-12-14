@@ -1,5 +1,6 @@
 package com.xmu.freight.standardDomain;
 
+import com.xmu.freight.domain.DefaultPieceFreightDto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -16,6 +17,21 @@ import java.util.List;
 @EqualsAndHashCode(callSuper = true)
 public class DefaultPieceFreight extends DefaultPieceFreightPo {
     private List<Integer> regionIds;
+
+    public DefaultPieceFreight(){}
+
+    public DefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto)
+    {
+        this.setId(defaultPieceFreightDto.getId());
+        this.setRegionIds(defaultPieceFreightDto.getDestinationList());
+        this.setDestination(defaultPieceFreightDto.getDestination());
+        this.setUnitRate(defaultPieceFreightDto.getUnitRate());
+        this.setGmtCreate(defaultPieceFreightDto.getGmtCreate());
+        this.setGmtModified(defaultPieceFreightDto.getGmtModified());
+        this.setRequireDays(defaultPieceFreightDto.getRequireDays());
+        this.setBeDeleted(defaultPieceFreightDto.getBeDeleted());
+    }
+
 
     public List<Integer> getRegionIds() {
         return regionIds;

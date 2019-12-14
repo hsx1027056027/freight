@@ -32,7 +32,11 @@ public class SpecialFreightDao {
         if(defaultPieceFreightDtoList.toString().equals("[]"))
         {
             System.out.println("redis中无默认特殊模板或过期");
-            initDefaultPieceInRedisFromDB();
+            if(initDefaultPieceInRedisFromDB()==0)
+            {
+                //DB中无数据
+                return null;
+            }
             defaultPieceFreightDtoList = this.getDefaultPieceFreightFromRedis();
         }
         else
@@ -100,10 +104,23 @@ public class SpecialFreightDao {
     /**
      * 从DB中放置特殊模板到redis
      */
-    public void initSpecialInRedisFromDB(){
+    public int initSpecialInRedisFromDB(){
         List<SpecialFreightDto> specialFreightDtoList = this.getSpecialFreights();
-        redisTemplate.opsForList().rightPushAll("special",specialFreightDtoList);
-        System.out.println("从DB中放置特殊模板到redis");
+        if(redisTemplate.hasKey("special") ==true)
+        {
+            redisTemplate.delete("special");
+        }
+        if(specialFreightDtoList.toString().equals("[]"))
+        {
+            System.out.println("DB中没被删除的特殊运费模板为空");
+            return 0;
+        }
+        else
+        {
+            redisTemplate.opsForList().rightPushAll("special",specialFreightDtoList);
+            System.out.println("从DB中放置特殊模板到redis");
+            return 1;
+        }
     }
 
 
@@ -135,7 +152,11 @@ public class SpecialFreightDao {
         if(specialFreightDtoList.toString().equals("[]"))
         {
             System.out.println("redis中无特殊模板或过期");
-            initSpecialInRedisFromDB();
+            if(initSpecialInRedisFromDB() == 0)
+            {
+                //DB中无数据
+                return null;
+            }
             specialFreightDtoList = this.getSpecialFreightsFromRedis();
         }
         else
@@ -157,12 +178,18 @@ public class SpecialFreightDao {
      * @param specialFreightDto 要修改的特殊模板
      * @return SpecialFreightDto
      */
-    public void updateSpecialFreight(SpecialFreightDto specialFreightDto) {
-        specialFreightMapper.updateSpecialFreight(specialFreightDto);
-        List<SpecialFreightDto> specialFreightDtoList = this.getSpecialFreights();
-        redisTemplate.delete("special");
-        redisTemplate.opsForList().rightPushAll("special",specialFreightDtoList);
-        System.out.println("同步修改redis中的特殊运费模板");
+    public SpecialFreightDto updateSpecialFreight(SpecialFreightDto specialFreightDto) {
+        int success = specialFreightMapper.updateSpecialFreight(specialFreightDto);
+        if(success ==0)
+        {
+            return null;
+        }
+        else
+        {
+            System.out.print("同步修改redis中的特殊运费模板：   ");
+            initSpecialInRedisFromDB();
+            return specialFreightMapper.findSpecialFreightById(specialFreightDto.getId());
+        }
     }
 
     /**
@@ -170,12 +197,19 @@ public class SpecialFreightDao {
      * @param specialFreightDto  要添加的特殊模板
      * @return SpecialFreightDto 添加后的特殊模板
      */
-    public void addSpecialFreight(SpecialFreightDto specialFreightDto){
-        specialFreightMapper.addSpecialFreight(specialFreightDto);
-        List<SpecialFreightDto> specialFreightDtoList = this.getSpecialFreights();
-        redisTemplate.delete("special");
-        redisTemplate.opsForList().rightPushAll("special",specialFreightDtoList);
-        System.out.println("同步添加redis中的特殊运费模板");
+    public SpecialFreightDto addSpecialFreight(SpecialFreightDto specialFreightDto){
+        int success = specialFreightMapper.addSpecialFreight(specialFreightDto);
+        if(success ==0)
+        {
+            return null;
+        }
+        else
+        {
+            System.out.print("同步添加redis中的特殊运费模板");
+            initSpecialInRedisFromDB();
+            return specialFreightMapper.findSpecialFreightById(specialFreightDto.getId());
+        }
+
     }
 
     /**
@@ -196,11 +230,25 @@ public class SpecialFreightDao {
 
     /**
      * 从DB中放置默认特殊运费模板到redis
+     * @return 0 DB空 1 DB没空
      */
-    public void initDefaultPieceInRedisFromDB() {
+    public int initDefaultPieceInRedisFromDB() {
         List<DefaultPieceFreightDto> defaultPieceFreightDtoList = getDefaultPieceFreight();
-        redisTemplate.opsForList().rightPushAll("defaultPiece",defaultPieceFreightDtoList);
-        System.out.println("从DB中放置默认特殊运费模板到redis");
+        if(redisTemplate.hasKey("defaultPiece")==true)
+        {
+            redisTemplate.delete("defaultPiece");
+        }
+        if(defaultPieceFreightDtoList.toString().equals("[]"))
+        {
+            System.out.println("DB中没被删除的默认运费模板为空");
+            return 0;
+        }
+        else
+        {
+            redisTemplate.opsForList().rightPushAll("defaultPiece",defaultPieceFreightDtoList);
+            System.out.println("从DB中放置默认特殊运费模板到redis");
+            return 1;
+        }
     }
 
 
@@ -227,12 +275,18 @@ public class SpecialFreightDao {
      * @param defaultPieceFreightDto 要更新的模板
      * @return DefaultPieceFreightDt 更新后的模板
      */
-    public void updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto){
-        specialFreightMapper.updateDefaultPieceFreight(defaultPieceFreightDto);
-        List<DefaultPieceFreightDto> defaultPieceFreightDtoList = this.getDefaultPieceFreight();
-        redisTemplate.delete("default");
-        redisTemplate.opsForList().rightPushAll("defaultPiece",defaultPieceFreightDtoList);
-        System.out.println("同步修改redis中的默认特殊运费模板");
+    public DefaultPieceFreightDto updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto){
+        int success = specialFreightMapper.updateDefaultPieceFreight(defaultPieceFreightDto);
+        if(success ==0)
+        {
+            return null;
+        }
+        else
+        {
+            System.out.print("同步修改redis中的默认特殊运费模板:   ");
+            initDefaultPieceInRedisFromDB();
+            return specialFreightMapper.findDefaultPieceFreightById(defaultPieceFreightDto.getId());
+        }
 
     }
 
@@ -241,12 +295,19 @@ public class SpecialFreightDao {
      * @param defaultPieceFreightDto 要添加的特殊默认模板
      * @return DefaultPieceFreightDt 添加成功的特殊默认模板
      */
-    public void addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto){
-        specialFreightMapper.addDefaultPieceFreight(defaultPieceFreightDto);
-        List<DefaultPieceFreightDto> defaultPieceFreightDtoList = this.getDefaultPieceFreight();
-        redisTemplate.delete("default");
-        redisTemplate.opsForList().rightPushAll("defaultPiece",defaultPieceFreightDtoList);
-        System.out.println("同步新增redis中的默认特殊运费模板");
+    public DefaultPieceFreightDto addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto){
+        int success = specialFreightMapper.addDefaultPieceFreight(defaultPieceFreightDto);
+        if(success ==0)
+        {
+            return null;
+        }
+        else
+        {
+            System.out.print("同步新增redis中的默认特殊运费模板:   ");
+            initDefaultPieceInRedisFromDB();
+            return specialFreightMapper.findDefaultPieceFreightById(defaultPieceFreightDto.getId());
+        }
+
     }
 
 

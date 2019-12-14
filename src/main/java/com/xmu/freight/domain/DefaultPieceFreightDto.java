@@ -12,6 +12,20 @@ import java.util.Map;
 @Alias("DefaultPieceFreight")
 public class DefaultPieceFreightDto extends DefaultPieceFreightPo {
 
+    public DefaultPieceFreightDto(){}
+
+    public DefaultPieceFreightDto(DefaultPieceFreightPo defaultPieceFreightPo)
+    {
+        this.setId(defaultPieceFreightPo.getId());
+        this.setDestination(defaultPieceFreightPo.getDestination());
+        this.setUnitRate(defaultPieceFreightPo.getUnitRate());
+        this.setGmtCreate(defaultPieceFreightPo.getGmtCreate());
+        this.setGmtModified(defaultPieceFreightPo.getGmtModified());
+        this.setRequireDays(defaultPieceFreightPo.getRequireDays());
+        this.setBeDeleted(defaultPieceFreightPo.getBeDeleted());
+    }
+
+
 
     public List<Integer> getDestinationList() {
         //转换方法

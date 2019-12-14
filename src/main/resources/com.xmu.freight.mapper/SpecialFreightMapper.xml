@@ -48,11 +48,11 @@
               gmt_modified,
               is_deleted
               from special_freight
-              where id=#{id}
+              where id=#{id} AND is_deleted !=true
     </select>
 
     <insert id="addSpecialFreight" parameterType="SpecialFreight" useGeneratedKeys="true" keyProperty="id">
-            intsert into special_freight(
+            insert into special_freight(
               first_num_piece,
               first_num_piece_price,
               continue_num_piece,
@@ -114,7 +114,7 @@
         gmt_modified,
         is_deleted
         from default_piece_freight
-        where id=#{id}
+        where id=#{id} AND is_deleted !=true
     </select>
 
     <update id="updateDefaultPieceFreight" parameterType="DefaultPieceFreight">
@@ -127,7 +127,7 @@
                <if test="gmtModified!=null">gmt_modified=#{gmtModified},</if>
                <if test="beDeleted!=null">is_deleted=#{beDeleted}</if>
            </set>
-           where id=#{id}
+           where id=#{id} AND is_deleted!=true
     </update>
 
     <insert id="addDefaultPieceFreight" parameterType="DefaultPieceFreight" useGeneratedKeys="true" keyProperty="id">

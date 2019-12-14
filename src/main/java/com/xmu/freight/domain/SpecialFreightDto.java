@@ -15,6 +15,22 @@ import java.time.LocalDateTime;
 @Alias("SpecialFreight")
 public class SpecialFreightDto extends SpecialFreight {
 
+    public SpecialFreightDto(){};
+
+    public SpecialFreightDto(SpecialFreight specialFreight)
+    {
+        this.setId(specialFreight.getId());
+        this.setFirstNumPiece(specialFreight.getFirstNumPiece());
+        this.setFirstNumPiecePrice(specialFreight.getFirstNumPiecePrice());
+        this.setContinueNumPiece(specialFreight.getContinueNumPiece());
+        this.setContinueNumPiecePrice(specialFreight.getContinueNumPiecePrice());
+        this.setGmtCreate(specialFreight.getGmtCreate());
+        this.setGmtModified(specialFreight.getGmtModified());
+        this.setBeDeleted(specialFreight.getBeDeleted());
+    }
+
+
+
 
     /**
      * 通过特殊模板来计算运费

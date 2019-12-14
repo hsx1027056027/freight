@@ -1,5 +1,6 @@
 package com.xmu.freight.standardDomain;
 
+import com.xmu.freight.domain.SpecialFreightDto;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -38,6 +39,31 @@ public class SpecialFreight {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
     private Boolean beDeleted;
+
+    public SpecialFreight(){}
+
+    public SpecialFreight(SpecialFreightDto specialFreightDto)
+    {
+            this.setId(specialFreightDto.getId());
+            this.setFirstNumPiece(specialFreightDto.getFirstNumPiece());
+            this.setFirstNumPiecePrice(specialFreightDto.getFirstNumPiecePrice());
+            this.setContinueNumPiece(specialFreightDto.getContinueNumPiece());
+            this.setContinueNumPiecePrice(specialFreightDto.getContinueNumPiecePrice());
+            this.setGmtCreate(specialFreightDto.getGmtCreate());
+            this.setGmtModified(specialFreightDto.getGmtModified());
+            this.setBeDeleted(specialFreightDto.getBeDeleted());
+    }
+
+    public boolean validate()
+    {
+        if(this.getContinueNumPiece()==null||this.getContinueNumPiecePrice()==null||this.getFirstNumPiece()==null||this.getFirstNumPiecePrice()==null)
+        {
+            return false;
+        }
+        return true;
+    }
+
+
 
     public Integer getId() {
         return id;

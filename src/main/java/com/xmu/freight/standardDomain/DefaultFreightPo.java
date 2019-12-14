@@ -1,5 +1,6 @@
 package com.xmu.freight.standardDomain;
 
+import com.xmu.freight.util.JacksonUtil;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
@@ -7,6 +8,8 @@ import lombok.ToString;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
+
 /**
  * @Author: 数据库与对象模型标准组
  * @Description: 默认重量模板
@@ -54,6 +57,27 @@ public class DefaultFreightPo {
     private LocalDateTime gmtCreate;
     private LocalDateTime gmtModified;
     private Boolean beDeleted;
+
+    public boolean validate()
+    {
+        String jsonString = this.getDestination();
+        jsonString = org.apache.commons.text.StringEscapeUtils.unescapeJson(jsonString);
+        List<Integer> regionIds = JacksonUtil.parseIntegerList(jsonString, "dest");
+        if(jsonString==null||regionIds==null||regionIds.toString().equals("[]"))
+        {
+            return false;
+        }
+        if(this.getFirstHeavyPrice()==null||this.getContinueHeavyPrice()==null||this.getOver10Price()==null||this.getOver50Price()==null||this.getOver100Price()==null||this.getOver300Price()==null)
+        {
+            return false;
+        }
+        if(this.getRequireDays()==null)
+        {
+            return false;
+        }
+        return true;
+    }
+
 
     public Integer getId() {
         return id;

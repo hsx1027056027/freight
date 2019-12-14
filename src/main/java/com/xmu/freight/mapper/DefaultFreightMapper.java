@@ -31,15 +31,15 @@ public interface DefaultFreightMapper {
     /**
      *修改默认运费模板
      * @param defaultFreightDto 新的模板
-     * @return  DefaultFreightDto修改后的该模板
+     * @return  行数
      */
-    public void updateDefaultFreight(DefaultFreightDto defaultFreightDto);
+    public int updateDefaultFreight(DefaultFreightDto defaultFreightDto);
 
     /**
      *新增运费模板
      * @param defaultFreightDto 新增的模板
-     * @return DefaultFreightDto 新增的模板
+     * @return 行数
      */
-    public void addDefaultFreight(DefaultFreightDto defaultFreightDto);
+    public int addDefaultFreight(DefaultFreightDto defaultFreightDto);
 
 }

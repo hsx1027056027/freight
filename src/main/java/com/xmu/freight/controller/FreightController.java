@@ -1,77 +1,283 @@
 package com.xmu.freight.controller;
 
 
-import com.xmu.freight.domain.OrderItemDto;
-import com.xmu.freight.domain.ProductDto;
+import com.xmu.freight.domain.*;
 import com.xmu.freight.service.FreightService;
 import com.xmu.freight.util.ResponseUtil;
-import com.xmu.freight.vo.OrderFreightRequestVo;
-import com.xmu.freight.vo.OrderItemVo;
 import com.xmu.freight.standardDomain.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import javax.ws.rs.PUT;
 import java.util.ArrayList;
 import java.util.List;
 
 
-
+@RestController
+@RequestMapping("")
 public class FreightController {
     @Autowired
     FreightService freightService;
 
-    @Autowired
-    RestTemplate restTemplate;
+//    @Autowired
+//    RestTemplate restTemplate;
 
     /**
      * 获得运费
-     * @param orderFreightRequestVo
+     * @param order
      * @return 运费
      */
-    public Object getFreight(@RequestBody OrderFreightRequestVo orderFreightRequestVo) {
-        List<OrderItemDto> OrderItemDtoList =new ArrayList<OrderItemDto>();
-        for (OrderItemVo orderItemVo:orderFreightRequestVo.getOrderItemVoList())
+    @GetMapping("/freightPrice")
+    public Object getFreight(@RequestBody Order order) {
+        if(order != null)
         {
-            OrderItemDto orderItemDto = new OrderItemDto();
-            orderItemDto.setOrderItemPo(orderItemVo.getOrderItemPo());
-            orderItemDto.setProductDto(new ProductDto(orderItemVo.getGoodsPo()));
-            OrderItemDtoList.add(orderItemDto);
+            List<OrderItemDto> OrderItemDtoList =new ArrayList<OrderItemDto>();
+            for (OrderItem orderItem:order.getOrderItemList())
+            {
+                OrderItemDto orderItemDto = new OrderItemDto();
+                orderItemDto.setOrderItemPo(orderItem);
+                orderItemDto.getProductDto().setGoodsPo(orderItem.getProduct().getGoodsPo());
+                OrderItemDtoList.add(orderItemDto);
+            }
+            Object retObj = ResponseUtil.ok(freightService.getFreight(OrderItemDtoList,order.getAddressObj()));
+            return retObj;
         }
-        Object retObj = ResponseUtil.ok(freightService.getFreight(OrderItemDtoList,orderFreightRequestVo.getAddressPo()));
+        else
+        {
+            return ResponseUtil.fail();
+        }
+    }
+
+    /**
+     * 管理员查看默认模板
+     * @return
+     */
+    @GetMapping("/defaultFreight")
+    public Object getDefaultFreights() {
+        List<DefaultFreight> defaultFreightList = new ArrayList<>();
+        List<DefaultFreightDto> defaultFreightDtoList = freightService.getDefaultFreights();
+        for(DefaultFreightDto defaultFreightDto:defaultFreightDtoList)
+        {
+            DefaultFreight defaultFreight = new DefaultFreight(defaultFreightDto);
+            defaultFreightList.add(defaultFreight);
+        }
+        Object retObj = ResponseUtil.ok(defaultFreightList);
         return retObj;
     }
 
-    public Object getDefaultFreights() {
-        return null;
+    /**
+     * 管理员新增默认模板
+     * @param defaultFreightPo
+     * @return
+     */
+    @PostMapping("/defaultFreight")
+    public Object addDefaultFreights(@RequestBody DefaultFreightPo defaultFreightPo) {
+        if(defaultFreightPo.validate()==true) {
+            DefaultFreightDto defaultFreightDto = new DefaultFreightDto(defaultFreightPo);
+            DefaultFreightDto result = freightService.addDefaultFreight(defaultFreightDto);
+            if (result != null) {
+                Object retObj = ResponseUtil.ok(result);
+                return retObj;
+            } else {
+                return ResponseUtil.serious();
+            }
+        }
+        else
+        {
+            return  ResponseUtil.badArgument();
+        }
     }
 
+    /**
+     * 管理员修改默认模板
+     * @param id
+     * @param defaultFreightPo
+     * @return
+     */
+    @PutMapping("/defaultFreight/{id}")
+    public Object updateDefaultFreight(@PathVariable Integer id, @RequestBody DefaultFreightPo defaultFreightPo) {
+        if(defaultFreightPo.validate()==true) {
+            defaultFreightPo.setId(id);
+            DefaultFreightDto defaultFreightDto = new DefaultFreightDto(defaultFreightPo);
+            DefaultFreightDto result = freightService.updateDefaultFreight(defaultFreightDto);
+            if (result != null) {
+                Object retObj = ResponseUtil.ok(result);
+                return retObj;
+            } else {
+                return ResponseUtil.serious();
+            }
+        }
+        else
+        {
+            return ResponseUtil.badArgument();
+        }
+    }
+
+    /**
+     * 管理员删除默认模板
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/defaultFreight/{id}")
+    public Object deleteDefaultFreight(@PathVariable Integer id) {
+        freightService.deleteDefaultFreight(id);
+        return ResponseUtil.ok();
+    }
+
+    /**
+     * 管理员查看特殊运费模板
+     * @return
+     */
+    @GetMapping("/specialFreight")
     public Object getSpecialFreight() {
-        return null;
+        List<SpecialFreight> specialFreightList = new ArrayList<>();
+        List<SpecialFreightDto> specialFreightDtoList = freightService.getSpecialFreights();
+        for(SpecialFreightDto specialFreightDto: specialFreightDtoList)
+        {
+            SpecialFreight specialFreight = new SpecialFreight(specialFreightDto);
+            specialFreightList.add(specialFreight);
+        }
+        Object retObj = ResponseUtil.ok(specialFreightList);
+        return retObj;
     }
 
-    public Object addDefaultFreights(DefaultPieceFreightPo defaultPieceFreightPo) {
-        return null;
+
+    /**
+     * 管理员新增特殊运费模板
+     * @param specialFreightPo
+     * @return
+     */
+    @PostMapping("/specialFreight")
+    public Object addSpecialFreight(@RequestBody SpecialFreight specialFreightPo) {
+        if(specialFreightPo.validate()==true) {
+            SpecialFreightDto specialFreightDto = new SpecialFreightDto(specialFreightPo);
+            SpecialFreightDto result = freightService.addSpecialFreight(specialFreightDto);
+            if (result != null) {
+                Object retObj = ResponseUtil.ok(result);
+                return retObj;
+            } else {
+                return ResponseUtil.serious();
+            }
+        }
+        else
+        {
+            return ResponseUtil.badArgument();
+        }
     }
 
-    public Object addSpecialFreight(SpecialFreight specialFreightPo) {
-        return null;
+    /**
+     * 管理员修改特殊运费模板
+     * @param id
+     * @param specialFreightPo
+     * @return
+     */
+    @PutMapping("/specialFreight/{id}")
+    public Object updateSpecialFreight(@PathVariable Integer id, @RequestBody SpecialFreight specialFreightPo) {
+        if(specialFreightPo.validate()==true) {
+            specialFreightPo.setId(id);
+            SpecialFreightDto specialFreightDto = new SpecialFreightDto(specialFreightPo);
+            SpecialFreightDto result = freightService.updateSpecialFreight(specialFreightDto);
+            if (result != null) {
+                Object retObj = ResponseUtil.ok(result);
+                return retObj;
+            } else {
+                return ResponseUtil.serious();
+            }
+        }
+        else
+        {
+            return ResponseUtil.badArgument();
+        }
     }
 
-    public Object deleteDefaultFreight(Integer id) {
-        return null;
+    /**
+     * 管理员删除特殊运费模板
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/specialFreight/{id}")
+    public Object deleteSpecialFreight(@PathVariable Integer id) {
+        freightService.deleteSpecialFreight(id);
+        return ResponseUtil.ok();
     }
 
-    public Object deleteSpecialFreight(Integer id) {
-        return null;
+    /**
+     * 管理员查看默认特殊模板
+     * @return
+     */
+    @GetMapping("/defaultPieceFreight")
+    public Object getDefaultPieceFreights() {
+        List<DefaultPieceFreight> defaultPieceFreightList = new ArrayList<>();
+        List<DefaultPieceFreightDto> defaultPieceFreightDtoList = freightService.getDefaultPieceFreight();
+        for(DefaultPieceFreightDto defaultPieceFreightDto:defaultPieceFreightDtoList)
+        {
+            DefaultPieceFreight defaultPieceFreight = new DefaultPieceFreight(defaultPieceFreightDto);
+            defaultPieceFreightList.add(defaultPieceFreight);
+        }
+        Object retObj = ResponseUtil.ok(defaultPieceFreightList);
+        return retObj;
     }
 
-    public Object updateSpecialFreight(Integer id, SpecialFreight specialFreightPo) {
-        return null;
+    /**
+     * 管理员新增默认特殊模板
+     * @param defaultPieceFreightPo
+     * @return
+     */
+    @PostMapping("/defaultPieceFreight")
+    public Object addDefaultPieceFreights(@RequestBody DefaultPieceFreightPo defaultPieceFreightPo) {
+        if (defaultPieceFreightPo.validate()==true) {
+            DefaultPieceFreightDto defaultPieceFreightDto = new DefaultPieceFreightDto(defaultPieceFreightPo);
+            DefaultPieceFreightDto result = freightService.addDefaultPieceFreight(defaultPieceFreightDto);
+            if (result != null) {
+                Object retObj = ResponseUtil.ok(result);
+                return retObj;
+            } else {
+                return ResponseUtil.serious();
+            }
+        }
+        else
+        {
+            return ResponseUtil.badArgument();
+        }
     }
 
-    public Object updateDefaultFreight(Integer id, DefaultPieceFreightPo defaultPieceFreightPo) {
-        return null;
+    /**
+     * 管理员修改默认模板
+     * @param id
+     * @param defaultPieceFreightPo
+     * @return
+     */
+    @PutMapping("/defaultPieceFreight/{id}")
+    public Object updateDefaultPieceFreight(@PathVariable Integer id,@RequestBody DefaultPieceFreightPo defaultPieceFreightPo) {
+        if(defaultPieceFreightPo.validate()==true) {
+            defaultPieceFreightPo.setId(id);
+            DefaultPieceFreightDto defaultPieceFreightDto = new DefaultPieceFreightDto(defaultPieceFreightPo);
+            DefaultPieceFreightDto result = freightService.updateDefaultPieceFreight(defaultPieceFreightDto);
+            if (result != null) {
+                Object retObj = ResponseUtil.ok(result);
+                return retObj;
+            } else {
+                return ResponseUtil.serious();
+            }
+        }
+        else
+        {
+            return ResponseUtil.badArgument();
+        }
     }
+
+    /**
+     * 管理员删除默认模板
+     * @param id
+     * @return
+     */
+    @DeleteMapping("/defaultPieceFreight/{id}")
+    public Object deleteDefaultPieceFreight(@PathVariable Integer id) {
+        freightService.deleteDefaultPieceFreight(id);
+        return ResponseUtil.ok();
+    }
+
+
 }

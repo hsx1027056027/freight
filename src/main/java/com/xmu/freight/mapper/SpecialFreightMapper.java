@@ -34,16 +34,16 @@ public interface SpecialFreightMapper {
     /**
      *  修改特殊运费模板
      * @param specialFreightDto 要修改的特殊模板
-     * @return SpecialFreightDto
+     * @return 行数
      */
-    public void updateSpecialFreight(SpecialFreightDto specialFreightDto);
+    public int updateSpecialFreight(SpecialFreightDto specialFreightDto);
 
     /**
      * 添加特殊运费模板
      * @param specialFreightDto  要添加的特殊模板
-     * @return SpecialFreightDto 添加后的特殊模板
+     * @return 行数
      */
-    public void addSpecialFreight(SpecialFreightDto specialFreightDto);
+    public int addSpecialFreight(SpecialFreightDto specialFreightDto);
 
     /**
      * 获得所有默认特殊模板(未删除的）
@@ -67,14 +67,14 @@ public interface SpecialFreightMapper {
     /**
      * 更新默认特殊运费模板
      * @param defaultPieceFreightDto 要更新的模板
-     * @return DefaultPieceFreightDt 更新后的模板
+     * @return 行数
      */
-    public void updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
+    public int updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
 
     /**
      * 添加默认特殊模板
      * @param defaultPieceFreightDto 要添加的特殊默认模板
-     * @return DefaultPieceFreightDt 添加成功的特殊默认模板
+     * @return 行数
      */
-    public void addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
+    public int addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto);
 }

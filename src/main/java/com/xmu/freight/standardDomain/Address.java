@@ -20,6 +20,8 @@ public class Address extends AddressPo {
 
     private String county;
 
+
+
     public String getProvince() {
         return province;
     }

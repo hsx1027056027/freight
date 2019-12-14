@@ -68,7 +68,7 @@ public class JacksonUtil {
         return null;
     }
 
-    public static List<Integer> parseIntegerList(String body, String field) {
+    public static List<Integer> parseIntegerList(String body, String field)  {
         ObjectMapper mapper = new ObjectMapper().registerModule(new Jdk8Module())
                 .registerModule(new JavaTimeModule());;
         JsonNode node;

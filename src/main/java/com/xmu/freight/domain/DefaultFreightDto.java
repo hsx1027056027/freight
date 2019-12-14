@@ -20,6 +20,25 @@ import java.util.*;
 @Alias("DefaultFreight")
 public class DefaultFreightDto extends DefaultFreightPo {
 
+    public DefaultFreightDto(){}
+
+    public DefaultFreightDto(DefaultFreightPo defaultFreightPo)
+    {
+        this.setId(defaultFreightPo.getId());
+        this.setDestination(defaultFreightPo.getDestination());
+        this.setFirstHeavyPrice(defaultFreightPo.getFirstHeavyPrice());
+        this.setContinueHeavyPrice(defaultFreightPo.getContinueHeavyPrice());
+        this.setOver10Price(defaultFreightPo.getOver10Price());
+        this.setOver50Price(defaultFreightPo.getOver50Price());
+        this.setOver100Price(defaultFreightPo.getOver100Price());
+        this.setOver300Price(defaultFreightPo.getOver300Price());
+        this.setRequireDays(defaultFreightPo.getRequireDays());
+        this.setGmtCreate(defaultFreightPo.getGmtCreate());
+        this.setGmtModified(defaultFreightPo.getGmtModified());
+        this.setBeDeleted(defaultFreightPo.getBeDeleted());
+    }
+
+
 
     /**
      * 通过默认模板来计算运费

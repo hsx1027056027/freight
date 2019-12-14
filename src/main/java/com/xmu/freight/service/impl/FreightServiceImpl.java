@@ -35,9 +35,7 @@ public class FreightServiceImpl implements FreightService {
      * @return List<DefaultFreightDto>模板列表
      */
     @Override
-    public List<DefaultFreightDto> getDefaultFreights() {
-        return defaultFreightDao.getDefaultFreights();
-    }
+    public List<DefaultFreightDto> getDefaultFreights() { return defaultFreightDao.getDefaultFreights(); }
 
     /**
      * 获得默认运费模板列表（所有的）
@@ -66,9 +64,7 @@ public class FreightServiceImpl implements FreightService {
     @Override
     public DefaultFreightDto updateDefaultFreight(DefaultFreightDto defaultFreightDto) {
         defaultFreightDto.setGmtModified(LocalDateTime.now());
-        defaultFreightDao.UpdateDefaultFreight(defaultFreightDto);
-        DefaultFreightDto t=defaultFreightDao.findDefaultFreightById(defaultFreightDto.getId());
-        return t;
+        return defaultFreightDao.UpdateDefaultFreight(defaultFreightDto);
     }
 
 
@@ -81,9 +77,9 @@ public class FreightServiceImpl implements FreightService {
     public DefaultFreightDto addDefaultFreight(DefaultFreightDto defaultFreightDto) {
         defaultFreightDto.setGmtCreate(LocalDateTime.now());
         defaultFreightDto.setGmtModified(LocalDateTime.now());
-        defaultFreightDao.addDefaultFreight(defaultFreightDto);
-        DefaultFreightDto t=defaultFreightDao.findDefaultFreightById(defaultFreightDto.getId());
-        return t;
+        defaultFreightDto.setBeDeleted(false);
+        return defaultFreightDao.addDefaultFreight(defaultFreightDto);
+
     }
 
 
@@ -97,9 +93,8 @@ public class FreightServiceImpl implements FreightService {
         DefaultFreightDto t=new DefaultFreightDto();
         t.setId(id);
         t.setBeDeleted(true);
-        defaultFreightDao.UpdateDefaultFreight(t);
-        t=defaultFreightDao.findDefaultFreightById(t.getId());
-        return null;
+        t.setGmtModified(LocalDateTime.now());
+        return defaultFreightDao.UpdateDefaultFreight(t);
     }
 
     /**
@@ -138,9 +133,8 @@ public class FreightServiceImpl implements FreightService {
     @Override
     public SpecialFreightDto updateSpecialFreight(SpecialFreightDto specialFreightDto) {
         specialFreightDto.setGmtModified(LocalDateTime.now());
-        specialFreightDao.updateSpecialFreight(specialFreightDto);
-        SpecialFreightDto s=specialFreightDao.findSpecialFreightById(specialFreightDto.getId());
-        return s;
+        return specialFreightDao.updateSpecialFreight(specialFreightDto);
+
     }
 
     /**
@@ -152,24 +146,22 @@ public class FreightServiceImpl implements FreightService {
     public SpecialFreightDto addSpecialFreight(SpecialFreightDto specialFreightDto) {
         specialFreightDto.setGmtCreate(LocalDateTime.now());
         specialFreightDto.setGmtModified(LocalDateTime.now());
-        specialFreightDao.addSpecialFreight(specialFreightDto);
-        SpecialFreightDto s=specialFreightDao.findSpecialFreightById(specialFreightDto.getId());
-        return s;
+        specialFreightDto.setBeDeleted(false);
+        return specialFreightDao.addSpecialFreight(specialFreightDto);
     }
 
     /**
      * 删除特殊模板
      * @param id  要删除的特殊运费模板
-     * @return
+     * @return null
      */
     @Override
     public SpecialFreightDto deleteSpecialFreight(Integer id) {
         SpecialFreightDto s=new SpecialFreightDto();
         s.setId(id);
         s.setBeDeleted(true);
-        specialFreightDao.updateSpecialFreight(s);
-        s=specialFreightDao.findSpecialFreightById(s.getId());
-        return null;
+        s.setGmtModified(LocalDateTime.now());
+        return specialFreightDao.updateSpecialFreight(s);
     }
 
     /**
@@ -192,8 +184,8 @@ public class FreightServiceImpl implements FreightService {
     }
 
     /**
-     * 删除某个默认特殊模板
-     * @param id 要删除模板的ID
+     * Find某个默认特殊模板
+     * @param id 要dinf模板的ID
      * @return DefaultPieceFreightDt
      */
     @Override
@@ -209,9 +201,7 @@ public class FreightServiceImpl implements FreightService {
     @Override
     public DefaultPieceFreightDto updateDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto) {
         defaultPieceFreightDto.setGmtModified(LocalDateTime.now());
-        specialFreightDao.updateDefaultPieceFreight(defaultPieceFreightDto);
-        DefaultPieceFreightDto d=specialFreightDao.findDefaultPieceFreightById(defaultPieceFreightDto.getId());
-        return d;
+        return specialFreightDao.updateDefaultPieceFreight(defaultPieceFreightDto);
     }
 
 
@@ -224,9 +214,8 @@ public class FreightServiceImpl implements FreightService {
     public DefaultPieceFreightDto addDefaultPieceFreight(DefaultPieceFreightDto defaultPieceFreightDto) {
         defaultPieceFreightDto.setGmtCreate(LocalDateTime.now());
         defaultPieceFreightDto.setGmtModified(LocalDateTime.now());
-        specialFreightDao.addDefaultPieceFreight(defaultPieceFreightDto);
-        DefaultPieceFreightDto d=specialFreightDao.findDefaultPieceFreightById(defaultPieceFreightDto.getId());
-        return d;
+        defaultPieceFreightDto.setBeDeleted(false);
+        return specialFreightDao.addDefaultPieceFreight(defaultPieceFreightDto);
     }
 
     /**
@@ -239,9 +228,8 @@ public class FreightServiceImpl implements FreightService {
         DefaultPieceFreightDto d=new DefaultPieceFreightDto();
         d.setId(id);
         d.setBeDeleted(true);
-        specialFreightDao.updateDefaultPieceFreight(d);
-        d=specialFreightDao.findDefaultPieceFreightById(id);
-        return d;
+        d.setGmtModified(LocalDateTime.now());
+        return specialFreightDao.updateDefaultPieceFreight(d);
     }
 
     /**
@@ -299,7 +287,14 @@ public class FreightServiceImpl implements FreightService {
             allGoodsWeight = allGoodsWeight.add(weightPer.multiply(number));
         }
         DefaultFreightDto defaultFreightDto = defaultFreightDao.findDefaultByAddress(addressPo);
-        return defaultFreightDto.getDefaultFee(allGoodsWeight);
+        if(defaultFreightDto !=null)
+        {
+            return defaultFreightDto.getDefaultFee(allGoodsWeight);
+        }
+        else
+        {
+            return BigDecimal.ZERO;
+        }
     }
 
     /**
@@ -313,7 +308,14 @@ public class FreightServiceImpl implements FreightService {
     {
         SpecialFreightDto specialFreightDto = specialFreightDao.findSpecialFreightByIdFromRedis(good.getSpecialFreightId());
         BigDecimal rate = specialFreightDao.findRateOfDefaultPieceByAddress(addressPo);
-        return specialFreightDto.getSpecialFee(rate,allGoodsNum);
+        if(rate != null && specialFreightDto!=null)
+        {
+            return specialFreightDto.getSpecialFee(rate,allGoodsNum);
+        }
+        else
+        {
+            return BigDecimal.ZERO;
+        }
     }
 
     /**
@@ -323,7 +325,7 @@ public class FreightServiceImpl implements FreightService {
      */
     public BigDecimal getMaxResult(List<BigDecimal> result)
     {
-        BigDecimal max = new BigDecimal("0.00");
+        BigDecimal max = BigDecimal.ZERO;
         for(BigDecimal x: result)
         {
             if(x.compareTo(max) > 0)
@@ -333,8 +335,5 @@ public class FreightServiceImpl implements FreightService {
         }
         return max;
     }
-
-
-
 
 }

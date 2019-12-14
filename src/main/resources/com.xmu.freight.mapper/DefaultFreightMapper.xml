@@ -46,7 +46,7 @@
           gmt_modified,
           is_deleted
           from default_freight
-          where id=#{id}
+          where id=#{id} AND is_deleted!=true
     </select>
 
    <update id="updateDefaultFreight" parameterType="DefaultFreight">
@@ -64,7 +64,7 @@
                <if test="gmtModified!=null">gmt_modified=#{gmtModified},</if>
                <if test="beDeleted!=null">is_deleted=#{beDeleted}</if>
            </set>
-           where id=#{id}
+           where id=#{id} AND is_deleted!=true
    </update>
     
     <insert id="addDefaultFreight" parameterType="DefaultFreight" useGeneratedKeys="true" keyProperty="id">
