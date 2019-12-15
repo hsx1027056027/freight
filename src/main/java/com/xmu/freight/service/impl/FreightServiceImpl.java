@@ -1,5 +1,7 @@
 package com.xmu.freight.service.impl;
 
+import com.github.pagehelper.Page;
+import com.github.pagehelper.PageHelper;
 import com.xmu.freight.dao.DefaultFreightDao;
 import com.xmu.freight.dao.SpecialFreightDao;
 import com.xmu.freight.domain.DefaultFreightDto;
@@ -8,6 +10,7 @@ import com.xmu.freight.domain.OrderItemDto;
 import com.xmu.freight.domain.SpecialFreightDto;
 import com.xmu.freight.service.FreightService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import com.xmu.freight.standardDomain.*;
 
@@ -35,7 +38,10 @@ public class FreightServiceImpl implements FreightService {
      * @return List<DefaultFreightDto>模板列表
      */
     @Override
-    public List<DefaultFreightDto> getDefaultFreights() { return defaultFreightDao.getDefaultFreights(); }
+    public List<DefaultFreightDto> getDefaultFreights(Integer page,Integer limit) {
+        PageHelper.startPage(page,limit);
+        return defaultFreightDao.getDefaultFreights();
+    }
 
     /**
      * 获得默认运费模板列表（所有的）
@@ -102,7 +108,8 @@ public class FreightServiceImpl implements FreightService {
      * @return List<SpecialFreightDto> 所有的运费模板
      */
     @Override
-    public List<SpecialFreightDto> getSpecialFreights() {
+    public List<SpecialFreightDto> getSpecialFreights(Integer page, Integer limit) {
+        PageHelper.startPage(page,limit);
         return specialFreightDao.getSpecialFreights();
     }
 
@@ -169,7 +176,8 @@ public class FreightServiceImpl implements FreightService {
      * @return List<DefaultPieceFreightDto>所有默认特殊模板的列表
      */
     @Override
-    public List<DefaultPieceFreightDto> getDefaultPieceFreight() {
+    public List<DefaultPieceFreightDto> getDefaultPieceFreight(Integer page,Integer limit) {
+        PageHelper.startPage(page,limit);
         return specialFreightDao.getDefaultPieceFreight();
     }
 

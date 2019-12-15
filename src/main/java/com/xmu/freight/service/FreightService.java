@@ -4,6 +4,7 @@ import com.xmu.freight.domain.DefaultFreightDto;
 import com.xmu.freight.domain.DefaultPieceFreightDto;
 import com.xmu.freight.domain.OrderItemDto;
 import com.xmu.freight.domain.SpecialFreightDto;
+import org.springframework.data.relational.core.sql.In;
 import org.springframework.stereotype.Service;
 import com.xmu.freight.standardDomain.*;
 
@@ -14,7 +15,7 @@ import java.util.List;
 public interface FreightService {
 
 
-    public List<DefaultFreightDto> getDefaultFreights();
+    public List<DefaultFreightDto> getDefaultFreights(Integer page,Integer limit);
 
     public List<DefaultFreightDto> getDefaultFreightsAll();
 
@@ -26,7 +27,7 @@ public interface FreightService {
 
     public DefaultFreightDto deleteDefaultFreight(Integer id);
 
-    public List<SpecialFreightDto> getSpecialFreights();
+    public List<SpecialFreightDto> getSpecialFreights(Integer page, Integer limit);
 
     public List<SpecialFreightDto> getSpecialFreightsAll();
 
@@ -38,7 +39,7 @@ public interface FreightService {
 
     public SpecialFreightDto deleteSpecialFreight(Integer id);
 
-    public List<DefaultPieceFreightDto> getDefaultPieceFreight();
+    public List<DefaultPieceFreightDto> getDefaultPieceFreight(Integer page,Integer limit);
 
     public List<DefaultPieceFreightDto> getDefaultPieceFreightAll();
 

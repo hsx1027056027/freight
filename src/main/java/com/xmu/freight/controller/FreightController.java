@@ -1,6 +1,7 @@
 package com.xmu.freight.controller;
 
 
+import com.github.pagehelper.PageHelper;
 import com.xmu.freight.domain.*;
 import com.xmu.freight.service.FreightService;
 import com.xmu.freight.util.ResponseUtil;
@@ -55,9 +56,9 @@ public class FreightController {
      * @return
      */
     @GetMapping("/defaultFreight")
-    public Object getDefaultFreights() {
+    public Object getDefaultFreights(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
         List<DefaultFreight> defaultFreightList = new ArrayList<>();
-        List<DefaultFreightDto> defaultFreightDtoList = freightService.getDefaultFreights();
+        List<DefaultFreightDto> defaultFreightDtoList = freightService.getDefaultFreights(page,limit);
         for(DefaultFreightDto defaultFreightDto:defaultFreightDtoList)
         {
             DefaultFreight defaultFreight = new DefaultFreight(defaultFreightDto);
@@ -78,7 +79,8 @@ public class FreightController {
             DefaultFreightDto defaultFreightDto = new DefaultFreightDto(defaultFreightPo);
             DefaultFreightDto result = freightService.addDefaultFreight(defaultFreightDto);
             if (result != null) {
-                Object retObj = ResponseUtil.ok(result);
+                DefaultFreight temp = new DefaultFreight(result);
+                Object retObj = ResponseUtil.ok(temp);
                 return retObj;
             } else {
                 return ResponseUtil.serious();
@@ -103,7 +105,8 @@ public class FreightController {
             DefaultFreightDto defaultFreightDto = new DefaultFreightDto(defaultFreightPo);
             DefaultFreightDto result = freightService.updateDefaultFreight(defaultFreightDto);
             if (result != null) {
-                Object retObj = ResponseUtil.ok(result);
+                DefaultFreight temp = new DefaultFreight(result);
+                Object retObj = ResponseUtil.ok(temp);
                 return retObj;
             } else {
                 return ResponseUtil.serious();
@@ -131,9 +134,9 @@ public class FreightController {
      * @return
      */
     @GetMapping("/specialFreight")
-    public Object getSpecialFreight() {
+    public Object getSpecialFreight(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
         List<SpecialFreight> specialFreightList = new ArrayList<>();
-        List<SpecialFreightDto> specialFreightDtoList = freightService.getSpecialFreights();
+        List<SpecialFreightDto> specialFreightDtoList = freightService.getSpecialFreights(page,limit);
         for(SpecialFreightDto specialFreightDto: specialFreightDtoList)
         {
             SpecialFreight specialFreight = new SpecialFreight(specialFreightDto);
@@ -155,7 +158,8 @@ public class FreightController {
             SpecialFreightDto specialFreightDto = new SpecialFreightDto(specialFreightPo);
             SpecialFreightDto result = freightService.addSpecialFreight(specialFreightDto);
             if (result != null) {
-                Object retObj = ResponseUtil.ok(result);
+                SpecialFreight temp = new SpecialFreight(result);
+                Object retObj = ResponseUtil.ok(temp);
                 return retObj;
             } else {
                 return ResponseUtil.serious();
@@ -180,7 +184,8 @@ public class FreightController {
             SpecialFreightDto specialFreightDto = new SpecialFreightDto(specialFreightPo);
             SpecialFreightDto result = freightService.updateSpecialFreight(specialFreightDto);
             if (result != null) {
-                Object retObj = ResponseUtil.ok(result);
+                SpecialFreight temp = new SpecialFreight(result);
+                Object retObj = ResponseUtil.ok(temp);
                 return retObj;
             } else {
                 return ResponseUtil.serious();
@@ -208,9 +213,9 @@ public class FreightController {
      * @return
      */
     @GetMapping("/defaultPieceFreight")
-    public Object getDefaultPieceFreights() {
+    public Object getDefaultPieceFreights(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
         List<DefaultPieceFreight> defaultPieceFreightList = new ArrayList<>();
-        List<DefaultPieceFreightDto> defaultPieceFreightDtoList = freightService.getDefaultPieceFreight();
+        List<DefaultPieceFreightDto> defaultPieceFreightDtoList = freightService.getDefaultPieceFreight(page,limit);
         for(DefaultPieceFreightDto defaultPieceFreightDto:defaultPieceFreightDtoList)
         {
             DefaultPieceFreight defaultPieceFreight = new DefaultPieceFreight(defaultPieceFreightDto);
@@ -231,7 +236,8 @@ public class FreightController {
             DefaultPieceFreightDto defaultPieceFreightDto = new DefaultPieceFreightDto(defaultPieceFreightPo);
             DefaultPieceFreightDto result = freightService.addDefaultPieceFreight(defaultPieceFreightDto);
             if (result != null) {
-                Object retObj = ResponseUtil.ok(result);
+                DefaultPieceFreight temp = new DefaultPieceFreight(result);
+                Object retObj = ResponseUtil.ok(temp);
                 return retObj;
             } else {
                 return ResponseUtil.serious();
@@ -256,7 +262,8 @@ public class FreightController {
             DefaultPieceFreightDto defaultPieceFreightDto = new DefaultPieceFreightDto(defaultPieceFreightPo);
             DefaultPieceFreightDto result = freightService.updateDefaultPieceFreight(defaultPieceFreightDto);
             if (result != null) {
-                Object retObj = ResponseUtil.ok(result);
+                DefaultPieceFreight temp = new DefaultPieceFreight(result);
+                Object retObj = ResponseUtil.ok(temp);
                 return retObj;
             } else {
                 return ResponseUtil.serious();
